@@ -21,7 +21,7 @@
         [sender isKindOfClass:[UITableViewCell class]] )
     {
         UILabel* c = [(SWUITableViewCell *)sender label];
-        NSLog(c.text);
+        //NSLog(c.text);
         //ColorViewController* cvc = segue.destinationViewController;
         
         //cvc.color = c.textColor;
@@ -56,28 +56,32 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"title";
 
     switch ( indexPath.row )
     {
         case 0:
-            CellIdentifier = @"map";
+            CellIdentifier = @"title";
             break;
             
         case 1:
-            CellIdentifier = @"blue";
+            CellIdentifier = @"home";
             break;
-
+            
         case 2:
-            CellIdentifier = @"red";
+            CellIdentifier = @"profile";
+            break;
+            
+        case 3:
+            CellIdentifier = @"settings";
             break;
     }
-
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: CellIdentifier forIndexPath: indexPath];
  
     return cell;

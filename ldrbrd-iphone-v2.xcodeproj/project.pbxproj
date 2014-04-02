@@ -199,8 +199,8 @@
 		50D449C818EA3D73006B0219 /* vc */ = {
 			isa = PBXGroup;
 			children = (
-				50D449D018EAEA4D006B0219 /* lbMenuVC.m */,
 				50D449D118EAEA4D006B0219 /* lbMenuVC.h */,
+				50D449D018EAEA4D006B0219 /* lbMenuVC.m */,
 				50D449B118E90B54006B0219 /* lbMainVC.h */,
 				50D449B218E90B54006B0219 /* lbMainVC.m */,
 			);
