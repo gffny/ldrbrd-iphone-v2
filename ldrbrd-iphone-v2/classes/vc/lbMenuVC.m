@@ -20,7 +20,7 @@
     if ( [segue.destinationViewController isKindOfClass: [UIViewController class]] &&
         [sender isKindOfClass:[UITableViewCell class]] )
     {
-        UILabel* c = [(SWUITableViewCell *)sender label];
+        //UILabel* c = [(SWUITableViewCell *)sender label];
         //NSLog(c.text);
         //ColorViewController* cvc = segue.destinationViewController;
         
@@ -40,7 +40,7 @@
 
         rvcs.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
         {
-            UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:dvc];
+            //UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:dvc];
             //[rvc pushFrontViewController:nc animated:YES];
         };
     }
@@ -56,7 +56,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -68,16 +68,20 @@
         case 0:
             CellIdentifier = @"title";
             break;
-            
+
         case 1:
             CellIdentifier = @"home";
             break;
-            
+
         case 2:
+            CellIdentifier = @"play";
+            break;
+
+        case 3:
             CellIdentifier = @"profile";
             break;
-            
-        case 3:
+
+        case 4:
             CellIdentifier = @"settings";
             break;
     }
