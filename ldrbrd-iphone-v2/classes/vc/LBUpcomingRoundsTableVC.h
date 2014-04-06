@@ -10,4 +10,6 @@
 
 @interface LBUpcomingRoundsTableVC : UITableViewController
 
+@property (strong, nonatomic) IBOutlet UITableView *upcomingRoundTable;
+
 @end
