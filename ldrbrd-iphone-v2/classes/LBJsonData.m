@@ -12,7 +12,7 @@
 
 +(NSDictionary *) courseJson {
  
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"testdata" ofType:@"json"];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"stubbedcoursedata" ofType:@"json"];
     NSData *jsonData = [[NSData alloc] initWithContentsOfFile:filePath];
     
     NSError *error = nil;
