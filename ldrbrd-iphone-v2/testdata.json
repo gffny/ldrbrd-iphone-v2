@@ -1,0 +1,150 @@
+{
+    "courseHoleMap": {
+        "7f500b91-cec5-4573-921a-ac2d3c2ca1af": {
+            "0": {
+                "id": "58353147-4fea-4ea0-88a6-aa38662577cf",
+                "name": "Hole No. 1",
+                "holeDistance": 531,
+                "holeDescription": "Hole No. 1 description",
+                "holeNumber": 1,
+                "holeImageId": ""
+            },
+            "1": {
+                "id": "17886c62-1784-487b-920a-58707f99c3e5",
+                "name": "Hole No. 2",
+                "holeDistance": 514,
+                "holeDescription": "Hole No. 2 description",
+                "holeNumber": 2,
+                "holeImageId": ""
+            },
+            "2": {
+                "id": "34749cf0-b4ab-456d-ae83-96292ce353c2",
+                "name": "Hole No. 3",
+                "holeDistance": 512,
+                "holeDescription": "Hole No. 3 description",
+                "holeNumber": 3,
+                "holeImageId": ""
+            },
+            "3": {
+                "id": "0fc7f457-d4b0-47f4-9234-84b9fa120c1d",
+                "name": "Hole No. 4",
+                "holeDistance": 368,
+                "holeDescription": "Hole No. 4 description",
+                "holeNumber": 4,
+                "holeImageId": ""
+            },
+            "4": {
+                "id": "9411afdb-4061-4ec6-86b5-eeb695cfb896",
+                "name": "Hole No. 5",
+                "holeDistance": 508,
+                "holeDescription": "Hole No. 5 description",
+                "holeNumber": 5,
+                "holeImageId": ""
+            },
+            "5": {
+                "id": "f548fe74-c01b-47d0-966b-6390fb807a34",
+                "name": "Hole No. 6",
+                "holeDistance": 207,
+                "holeDescription": "Hole No. 6 description",
+                "holeNumber": 6,
+                "holeImageId": ""
+            },
+            "6": {
+                "id": "973b919a-5499-4205-91be-0a5f1e5e4750",
+                "name": "Hole No. 7",
+                "holeDistance": 292,
+                "holeDescription": "Hole No. 7 description",
+                "holeNumber": 7,
+                "holeImageId": ""
+            },
+            "7": {
+                "id": "23d06519-70bc-4100-88b9-11cb9b826467",
+                "name": "Hole No. 8",
+                "holeDistance": 526,
+                "holeDescription": "Hole No. 8 description",
+                "holeNumber": 8,
+                "holeImageId": ""
+            },
+            "8": {
+                "id": "31ab95fb-adad-47ba-a927-fe048c8a2bb4",
+                "name": "Hole No. 9",
+                "holeDistance": 302,
+                "holeDescription": "Hole No. 9 description",
+                "holeNumber": 9,
+                "holeImageId": ""
+            },
+            "9": {
+                "id": "9b5c98f7-9c73-413d-82b1-0858b8f41e79",
+                "name": "Hole No. 10",
+                "holeDistance": 528,
+                "holeDescription": "Hole No. 10 description",
+                "holeNumber": 10,
+                "holeImageId": ""
+            },
+            "10": {
+                "id": "3a492ece-96c0-4833-8480-3d8a9a50e86d",
+                "name": "Hole No. 11",
+                "holeDistance": 338,
+                "holeDescription": "Hole No. 11 description",
+                "holeNumber": 11,
+                "holeImageId": ""
+            },
+            "11": {
+                "id": "606f65fc-87da-4c85-996e-de6b292d75e9",
+                "name": "Hole No. 12",
+                "holeDistance": 174,
+                "holeDescription": "Hole No. 12 description",
+                "holeNumber": 12,
+                "holeImageId": ""
+            },
+            "12": {
+                "id": "34806f7f-42aa-4e74-bd7f-877c664f94cd",
+                "name": "Hole No. 13",
+                "holeDistance": 545,
+                "holeDescription": "Hole No. 13 description",
+                "holeNumber": 13,
+                "holeImageId": ""
+            },
+            "13": {
+                "id": "a5d96bc5-cdad-4785-9c93-521d38249473",
+                "name": "Hole No. 14",
+                "holeDistance": 159,
+                "holeDescription": "Hole No. 14 description",
+                "holeNumber": 14,
+                "holeImageId": ""
+            },
+            "14": {
+                "id": "cd44bd29-f2c4-4074-973a-e87d6e91b31d",
+                "name": "Hole No. 15",
+                "holeDistance": 417,
+                "holeDescription": "Hole No. 15 description",
+                "holeNumber": 15,
+                "holeImageId": ""
+            },
+            "15": {
+                "id": "3dd7904e-91e1-4a9d-8f5d-d36517815979",
+                "name": "Hole No. 16",
+                "holeDistance": 527,
+                "holeDescription": "Hole No. 16 description",
+                "holeNumber": 16,
+                "holeImageId": ""
+            },
+            "17": {
+                "id": "a2accee0-b3d1-4f17-a8ea-b06640ed1970",
+                "name": "Hole No. 18",
+                "holeDistance": 505,
+                "holeDescription": "Hole No. 18 description",
+                "holeNumber": 18,
+                "holeImageId": ""
+            },
+            "16": {
+                "id": "f5e6a4cb-766b-409c-b945-995ce8e6cfe5",
+                "name": "Hole No. 17",
+                "holeDistance": 453,
+                "holeDescription": "Hole No. 17 description",
+                "holeNumber": 17,
+                "holeImageId": ""
+            }
+        }
+    }
+}
