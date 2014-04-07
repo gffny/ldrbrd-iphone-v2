@@ -7,6 +7,7 @@
 //
 
 #import "lbMainVC.h"
+#import "LBUpcomingRoundsTableVC.h"
 
 @interface lbMainVC ()
 
@@ -53,6 +54,15 @@
     }
     return self;
 
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"seg_embdUpcmngRnds"])
+    {
+        LBUpcomingRoundsTableVC *urtvc = (LBUpcomingRoundsTableVC *)segue.destinationViewController;
+        urtvc.parentVC = self;
+    }
 }
 
 @end

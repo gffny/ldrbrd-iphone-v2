@@ -7,8 +7,11 @@
 //
 
 #import "LBUpcomingRoundsTableVC.h"
+#import "LBJsonData.h"
 
 @implementation LBUpcomingRoundsTableVC
+
+@synthesize parentVC;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -77,23 +80,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"didSelectRowAtIndexPath");
-    /*UIAlertView *messageAlert = [[UIAlertView alloc]
-     initWithTitle:@"Row Selected" message:@"You've selected a row" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];*/
-//    UIAlertView *messageAlert = [[UIAlertView alloc]
-//                                 initWithTitle:@"Row Selected" message:[tableData objectAtIndex:indexPath.row] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    
-    UIAlertView *messageAlert = [[UIAlertView alloc]
-                                 initWithTitle:@"Row Selected" message: [NSString stringWithFormat: @"Row %ld", (long)indexPath.row] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    
-    // Display the Hello World Message
-    [messageAlert show];
-    
-    // Checked the selected row
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSLog(@"Upcoming Rounds: didSelectRowAtIndexPath");
+
+    // UIAlertView *messageAlert = [[UIAlertView alloc] initWithTitle:@"Row Selected" message: [NSString stringWithFormat: @"Row %ld", (long)indexPath.row] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    // Display the Hello World Message [messageAlert show];
+
+    [parentVC performSegueWithIdentifier:@"seg_plyrnd" sender:parentVC];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showRecipeDetail"]) {
+        NSDictionary *course = [LBJsonData courseJson];
+
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        UIViewController *destViewController = segue.destinationViewController;
+        //destViewController.course = course;
+    }
 }
 
 @end

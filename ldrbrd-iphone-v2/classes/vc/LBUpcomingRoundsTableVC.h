@@ -10,6 +10,8 @@
 
 @interface LBUpcomingRoundsTableVC : UITableViewController
 
+@property (strong, nonatomic) UIViewController *parentVC;
+
 @property (strong, nonatomic) IBOutlet UITableView *upcomingRoundTable;
 
 @end
