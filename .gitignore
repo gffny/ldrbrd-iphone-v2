@@ -6,6 +6,8 @@
 #
 # Pods/
 *.lock
+*.xcodeproj
+*.xcworkspace
 #
 # OS generated files #
 ######################
