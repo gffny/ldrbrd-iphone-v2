@@ -8,6 +8,7 @@
 
 #import "lbMainVC.h"
 #import "LBUpcomingRoundsTableVC.h"
+#import "LBJsonData.h"
 
 @interface lbMainVC ()
 
@@ -20,6 +21,13 @@
 @end
 
 @implementation lbMainVC
+
+- (void)playUpcomingRoundWithId:(NSString *)roundId
+{
+    //TODO get course, and competition data using the roundId
+    [self performSegueWithIdentifier:@"seg_plyrnd" sender:self];
+
+}
 
 - (void)viewDidLoad
 {
@@ -51,6 +59,7 @@
     self = [super initWithCoder:decoder];
     if (self) {
         // Custom initialization
+        NSLog(@"blah");
     }
     return self;
 
@@ -62,6 +71,12 @@
     {
         LBUpcomingRoundsTableVC *urtvc = (LBUpcomingRoundsTableVC *)segue.destinationViewController;
         urtvc.parentVC = self;
+    }
+    if ([segue.identifier isEqualToString:@"seg_plyrnd"]) {
+        NSDictionary *course = [LBJsonData courseJson];
+
+        UIViewController *destViewController = segue.destinationViewController;
+        //destViewController.course = course;
     }
 }
 

@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 gffny.com. All rights reserved.
 //
 
-#import "lbCourseHoleDto.h"
+#import "LBCourseHoleDto.h"
 
-@implementation lbCourseHoleDto
+@implementation LBCourseHoleDto
 
 @synthesize holeId;
 @synthesize holeNumber;

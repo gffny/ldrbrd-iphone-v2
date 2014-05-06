@@ -10,4 +10,6 @@
 
 @interface LBSelectClubsVC : UIViewController
 
+@property (strong, nonatomic) IBOutlet UIButton *plyGlfBtn;
+
 @end

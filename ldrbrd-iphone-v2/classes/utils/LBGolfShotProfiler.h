@@ -10,6 +10,14 @@
 
 @interface LBGolfShotProfiler : NSObject
 
-+ (NSString *) profileShotWithPoints: (NSDictionary *) pointArray;
+typedef enum {
+    PULLDRAW, PULL, PULLFADE, STRAIGHTDRAW, STRAIGHT, STRAIGHTFADE, PUSHDRAW, PUSH, PUSHFADE, UNRECOGNIZED
+} LBGolfShotProfile;
+
++ (LBGolfShotProfile) profileShotWithPoints: (NSArray *) pointArray;
+
++ (LBGolfShotProfile) characterizeShotWithMatrix: (NSArray *) shotMatrix;
+
++ (int) findXpointFor: (CGFloat) y withPoints: (NSArray *) pointArray;
 
 @end

@@ -10,4 +10,6 @@
 
 @interface LBCourseDescription : UIView
 
+@property (nonatomic, strong) UILabel *parLabel;
+
 @end

@@ -85,17 +85,10 @@
     // UIAlertView *messageAlert = [[UIAlertView alloc] initWithTitle:@"Row Selected" message: [NSString stringWithFormat: @"Row %ld", (long)indexPath.row] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     // Display the Hello World Message [messageAlert show];
 
-    [parentVC performSegueWithIdentifier:@"seg_plyrnd" sender:parentVC];
+    //PROBABLY BETTER TO CALL A METHOD WITH THE SELECTED ROUND DETAILS INSTEAD :)
+    [parentVC playUpcomingRoundWithId: @"upcomingroundid"];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showRecipeDetail"]) {
-        NSDictionary *course = [LBJsonData courseJson];
 
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        UIViewController *destViewController = segue.destinationViewController;
-        //destViewController.course = course;
-    }
-}
 
 @end

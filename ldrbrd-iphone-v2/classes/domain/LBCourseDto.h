@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface lbCourseDto : NSObject
+@interface LBCourseDto : NSObject
 
 @property (nonatomic) NSString *courseId;
 @property (nonatomic) NSString *courseName;

@@ -27,12 +27,21 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.plyGlfBtn addTarget:self action:@selector(plyGlfBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
+
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)plyGlfBtnClckd:(UIButton *)sender
+{
+    NSLog(@"play glf button clicked");
+    self.navigationController.navigationBar.hidden = YES;
+    [self performSegueWithIdentifier:@"seg_plyglf" sender:self];
 }
 
 /*

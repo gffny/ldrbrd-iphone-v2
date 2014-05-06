@@ -14,6 +14,9 @@
 
 @implementation LBSelectGolfersVC
 
+@synthesize schdlRndBtn;
+@synthesize slctGlfClbsBtn;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -27,8 +30,22 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.slctGlfClbsBtn addTarget:self action:@selector(slctGlfClbsBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
+    [self.schdlRndBtn addTarget:self action:@selector(schdlRndBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
+- (void)slctGlfClbsBtnClckd:(UIButton *)sender
+{
+    NSLog(@"select golf clubs button clicked");
+    [self performSegueWithIdentifier:@"seg_slctglfclbs" sender:self];
+}
+
+- (void)schdlRndBtnClckd:(UIButton *)sender
+{
+    NSLog(@"schedule round button clicked");
+    [self performSegueWithIdentifier:@"seg_schdlrnd" sender:self];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

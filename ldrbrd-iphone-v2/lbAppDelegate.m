@@ -7,6 +7,7 @@
 //
 
 #import "lbAppDelegate.h"
+#import "LBDataManager.h"
 #import "UIColor+lbColours.h"
 
 @implementation lbAppDelegate
@@ -14,6 +15,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self initialiseAppData];
 //    [self initializeGoogleMapsApi];
 //    [self initializeStyling];
 //    [self initializeReachability];
@@ -22,6 +24,12 @@
 //    [self initializeCrashReporting];
 //    [self initializeRating];
     return YES;
+}
+
+- (void) initialiseAppData
+{
+    //create instance of datamanager
+    [LBDataManager sharedInstance];
 }
 
 - (void)initializeStyling

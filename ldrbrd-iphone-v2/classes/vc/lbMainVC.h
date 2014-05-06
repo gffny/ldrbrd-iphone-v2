@@ -10,4 +10,6 @@
 
 @interface lbMainVC : UIViewController
 
+-(void) playUpcomingRoundWithId: (NSString *) roundId;
+
 @end

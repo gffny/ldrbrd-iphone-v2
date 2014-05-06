@@ -10,4 +10,7 @@
 
 @interface LBLoginVC : UIViewController
 
+@property (strong, nonatomic) IBOutlet UILabel *warningLabel;
+@property (strong, nonatomic) IBOutlet UIButton *loginButton;
+
 @end

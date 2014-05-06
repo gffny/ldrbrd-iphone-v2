@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 gffny.com. All rights reserved.
 //
 
-#import "lbCourseDto.h"
-#import "lbCourseHoleDto.h"
+#import "LBCourseDto.h"
+#import "LBCourseHoleDto.h"
 
-@implementation lbCourseDto
+@implementation LBCourseDto
 
 @synthesize courseId;
 @synthesize courseName;
@@ -29,7 +29,7 @@
     for (int key = 0; key < holeCount; key++) {
         NSDictionary *hole = [holeMap objectForKey: [NSString stringWithFormat:@"%d", key]];
         if (hole != NULL) {
-            [courseHoleMap addObject: [[lbCourseHoleDto alloc] initWithHoleDetails: hole]];
+            [courseHoleMap addObject: [[LBCourseHoleDto alloc] initWithHoleDetails: hole]];
         } else {
             // TODO maybe handle this a little fucking better!
             NSLog(@"course hole is null!");

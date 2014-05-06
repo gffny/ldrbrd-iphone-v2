@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "lbMainVC.h"
 
 @interface LBUpcomingRoundsTableVC : UITableViewController
 
-@property (strong, nonatomic) UIViewController *parentVC;
+@property (strong, nonatomic) lbMainVC *parentVC;
 
 @property (strong, nonatomic) IBOutlet UITableView *upcomingRoundTable;
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface lbCourseHoleDto : NSObject
+@interface LBCourseHoleDto : NSObject
 
 @property (nonatomic) NSString *holeId;
 @property (nonatomic) long holeNumber;

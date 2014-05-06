@@ -10,4 +10,16 @@
 
 @interface LBDataManager : NSObject
 
+@property (nonatomic, strong) NSDictionary *currentRound;
+@property (nonatomic, strong) NSDictionary *currentScorecard;
+@property (nonatomic, strong) NSDictionary *golferProfile;
+@property (nonatomic, strong) NSDictionary *golfClubArray;
+@property (nonatomic, strong) NSDictionary *newsItemArray;
+@property (nonatomic, strong) NSDictionary *favouriteCourseArray;
+@property (nonatomic, strong) NSDictionary *localCourseArray;
+
++(LBDataManager*) sharedInstance;
+
+-(BOOL) isInRound;
+
 @end
