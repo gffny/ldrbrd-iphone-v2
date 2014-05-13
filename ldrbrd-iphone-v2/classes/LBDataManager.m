@@ -11,7 +11,7 @@
 @implementation LBDataManager
 
 @synthesize currentRound;
-@synthesize currentScorecard;
+@synthesize currentScoreArray;
 @synthesize golferProfile;
 @synthesize golfClubArray;
 @synthesize newsItemArray;
@@ -40,7 +40,7 @@
 
 -(BOOL) isInRound
 {
-    if(currentRound != NULL && currentScorecard != NULL)
+    if(currentRound != NULL && currentScoreArray != NULL)
     {
         return YES;
     }

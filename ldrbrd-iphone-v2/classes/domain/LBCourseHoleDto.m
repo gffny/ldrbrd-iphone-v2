@@ -14,6 +14,8 @@
 @synthesize holeNumber;
 @synthesize name;
 @synthesize distance;
+@synthesize par;
+@synthesize index;
 @synthesize description;
 @synthesize imageId;
 
@@ -28,6 +30,8 @@
             [self setHoleNumber: [courseHoleDictionary[@"holeNumber"] longValue]];
             [self setName: courseHoleDictionary[@"name"]];
             [self setDistance: [courseHoleDictionary[@"holeDistance"] longValue]];
+            [self setPar: [courseHoleDictionary[@"par"] longValue]];
+            [self setIndex: [courseHoleDictionary[@"index"] longValue]];
             [self setImageId: courseHoleDictionary[@"holeImageId"]];
             [self setDescription: courseHoleDictionary[@"holeDescription"]];
             

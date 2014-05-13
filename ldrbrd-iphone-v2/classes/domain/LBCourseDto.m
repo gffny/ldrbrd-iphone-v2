@@ -13,20 +13,19 @@
 
 @synthesize courseId;
 @synthesize courseName;
-@synthesize par;
-@synthesize isNineHole;
 @synthesize teeColour;
 @synthesize courseImageRef;
 @synthesize slopeIndex;
 @synthesize courseHoleMap;
 
+-(LBCourseHoleDto *) courseHoleWithNumber: (int) holeNumber {
+
+    return [courseHoleMap objectAtIndex: holeNumber];
+}
+
 - (void) initCourseHoleMap:(NSDictionary *)holeMap {
     courseHoleMap = [NSMutableArray array];
-    int holeCount = 18;
-    if( isNineHole) {
-        holeCount = 9;
-    }
-    for (int key = 0; key < holeCount; key++) {
+    for (int key = 0; key < holeMap.count; key++) {
         NSDictionary *hole = [holeMap objectForKey: [NSString stringWithFormat:@"%d", key]];
         if (hole != NULL) {
             [courseHoleMap addObject: [[LBCourseHoleDto alloc] initWithHoleDetails: hole]];
@@ -35,7 +34,6 @@
             NSLog(@"course hole is null!");
         }
     }
-    NSLog(@"I'm here!");
 }
 
 -(id) initWithCourseDetails: (NSDictionary *) jsonResult {
@@ -46,12 +44,6 @@
             // set the data
             [self setCourseId: jsonResult[@"id"]];
             [self setCourseName: jsonResult[@"courseName"]];
-            [self setPar: [jsonResult[@"par"] longValue]];
-            if([self par] > 37) {
-                [self setIsNineHole: FALSE];
-            } else {
-                [self setIsNineHole: TRUE];
-            }
             [self setTeeColour: jsonResult[@"teeColour"]];
             [self setCourseImageRef: jsonResult[@"courseImageRef"]];            
             [self setSlopeIndex: [jsonResult[@"slopeIndex"] doubleValue]];
@@ -61,6 +53,49 @@
     }
     //otherwise return null
     return NULL;
+}
+
++ (id) courseWithProperties:(NSDictionary *)properties {
+    LBCourseDto *course = [[self alloc] init];
+    if(properties) {
+        NSDictionary *courseHoleMap = properties[@"courseHoleMap"];
+        for (NSString* key in courseHoleMap) {
+            [course setCourseId: key];
+            [course initHoleMap: [courseHoleMap objectForKey:key]];
+        }
+        [course setCourseName:@"Fresh Pond"];
+        [course setTeeColour:@"White"];
+    }
+    return course;
+}
+
+- (void) initHoleMap:(NSDictionary *)holeMap {
+    courseHoleMap = [NSMutableArray array];
+    for (int key = 0; key < holeMap.count; key++) {
+        NSDictionary *hole = [holeMap objectForKey: [NSString stringWithFormat:@"%d", key]];
+        if (hole != NULL) {
+            [courseHoleMap addObject: [[LBCourseHoleDto alloc] initWithHoleDetails: hole]];
+        } else {
+            // TODO maybe handle this a little fucking better!
+            NSLog(@"course hole is null!");
+        }
+    }
+}
+
+-(BOOL) isNineHole {
+    return !courseHoleMap.count == 18;
+}
+
+-(int) par {
+    int coursePar = 0;
+    for(int i=0;i<courseHoleMap.count;i++) {
+        coursePar += ((LBCourseHoleDto*)[courseHoleMap objectAtIndex:i]).par;
+    }
+    return coursePar;
+}
+
+-(double) index {
+    return slopeIndex;
 }
 
 @end

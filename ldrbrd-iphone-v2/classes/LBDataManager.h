@@ -7,16 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LBCourseDto.h"
 
 @interface LBDataManager : NSObject
 
 @property (nonatomic, strong) NSDictionary *currentRound;
-@property (nonatomic, strong) NSDictionary *currentScorecard;
+@property (nonatomic, strong) NSMutableArray *currentScoreArray;
 @property (nonatomic, strong) NSDictionary *golferProfile;
 @property (nonatomic, strong) NSDictionary *golfClubArray;
 @property (nonatomic, strong) NSDictionary *newsItemArray;
 @property (nonatomic, strong) NSDictionary *favouriteCourseArray;
 @property (nonatomic, strong) NSDictionary *localCourseArray;
+@property (nonatomic, strong) LBCourseDto *courseInPlay;
 
 +(LBDataManager*) sharedInstance;
 

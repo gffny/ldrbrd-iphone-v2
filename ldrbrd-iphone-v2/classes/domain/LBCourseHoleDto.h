@@ -14,6 +14,8 @@
 @property (nonatomic) long holeNumber;
 @property (nonatomic) NSString *name;
 @property (nonatomic) long distance;
+@property (nonatomic) long par;
+@property (nonatomic) long index;
 @property (nonatomic) NSString *description;
 @property (nonatomic) NSString *imageId;
 

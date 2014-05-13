@@ -69,15 +69,15 @@
                     if(i+2 < pointArray.count) {
                         potentialX = [[pointArray objectAtIndex:i+2] CGPointValue];
                         if(potentialX.y - y < 5 && potentialX.y - y > 0) {
-                            NSLog(@"1 | x axis %f y axis %f", [[pointArray objectAtIndex: i+2] CGPointValue].x - initalX, y);
+                            NSLog(@"x axis %f y axis %f", [[pointArray objectAtIndex: i+2] CGPointValue].x - initalX, y);
                             return ([[pointArray objectAtIndex: i+2] CGPointValue].x - initalX);
                         }
                     }
-                    NSLog(@"1 | x axis %f y axis %f", [[pointArray objectAtIndex: i] CGPointValue].x - initalX, y);
+                    NSLog(@"x axis %f y axis %f", [[pointArray objectAtIndex: i] CGPointValue].x - initalX, y);
                     return ([[pointArray objectAtIndex: i+1] CGPointValue].x - initalX);
                 }
             }
-            NSLog(@"1 | x axis %f y axis %f", [[pointArray objectAtIndex: i] CGPointValue].x - initalX, y);
+            NSLog(@"x axis %f y axis %f", [[pointArray objectAtIndex: i] CGPointValue].x - initalX, y);
             return ([[pointArray objectAtIndex: i] CGPointValue].x - initalX);
         }
     }

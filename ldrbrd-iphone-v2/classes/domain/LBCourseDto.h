@@ -7,20 +7,29 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LBCourseHoleDto.h"
 
 @interface LBCourseDto : NSObject
 
 @property (nonatomic) NSString *courseId;
 @property (nonatomic) NSString *courseName;
-@property (nonatomic) long par;
-@property (nonatomic) BOOL isNineHole;
 @property (nonatomic) NSString *teeColour;
-@property (nonatomic) double slopeIndex;
+@property (nonatomic) int slopeIndex;
 @property (nonatomic) NSString *courseImageRef;
 @property (nonatomic) NSMutableArray *courseHoleMap;
+
+-(LBCourseHoleDto *) courseHoleWithNumber: (int) holeNumber;
+
+-(int) par;
+
+-(int) index;
+
+-(BOOL) isNineHole;
 
 -(id) initWithCourseDetails: (NSDictionary *) jsonResult;
 
 -(void) initCourseHoleMap: (NSDictionary *) holeMap;
+
++(id)courseWithProperties:(NSDictionary *)properties;
 
 @end
