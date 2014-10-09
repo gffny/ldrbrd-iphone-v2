@@ -11,6 +11,8 @@
 
 @interface LBRoundSummaryVC: UIViewController
 
+@property (strong, nonatomic) IBOutlet UIButton *submitScorecardBtn;
+
 @end
 
 @interface LBRoundSummaryHoleTableVC : UITableViewController

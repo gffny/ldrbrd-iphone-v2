@@ -10,20 +10,24 @@
 
 @implementation LBDataManager
 
-@synthesize currentRound;
+@synthesize scorecardId;
 @synthesize currentScoreArray;
+
 @synthesize golferProfile;
 @synthesize golfClubArray;
 @synthesize newsItemArray;
+
 @synthesize favouriteCourseArray;
 @synthesize localCourseArray;
+@synthesize courseInPlay;
 
 +(LBDataManager*) sharedInstance
 {
     //Singleton Pattern courtesy of http://www.raywenderlich.com/46988/ios-design-patterns
     static LBDataManager *_sharedInstance = nil;
     static dispatch_once_t oncePredicate;
-    dispatch_once(&oncePredicate, ^{_sharedInstance = [[LBDataManager alloc] init];
+    dispatch_once(&oncePredicate, ^{
+        _sharedInstance = [[LBDataManager alloc] init];
     });
     return _sharedInstance;
 }
@@ -38,13 +42,58 @@
     return self;
 }
 
+-(void) initialiseCourse: (LBCourseDto *) course
+{
+    if(self)
+    {
+        courseInPlay = course;
+        currentScoreArray = [[NSMutableArray alloc] initWithCapacity: course.courseHoleMap.count];
+        for(int i=0;i<course.courseHoleMap.count;i++)
+        {
+            [currentScoreArray setObject:[NSNumber numberWithInt:0] atIndexedSubscript:i];
+        }
+    }
+}
+
+-(void) initialiseScorecardId: (NSString *) newScorecardId
+{
+    if(self)
+    {
+        self.scorecardId = newScorecardId;
+    }
+}
+
 -(BOOL) isInRound
 {
-    if(currentRound != NULL && currentScoreArray != NULL)
+    if(scorecardId != NULL && currentScoreArray != NULL)
     {
         return YES;
     }
     return NO;
 }
+
+-(NSInteger) getScoreForHole: (NSNumber *) holeNumber
+{
+    if(currentScoreArray != NULL && [holeNumber intValue] <= currentScoreArray.count)
+    {
+        NSNumber *score = [currentScoreArray objectAtIndex: [holeNumber integerValue]];
+        return [score integerValue];
+    }
+    return [[NSNumber numberWithInt: 0] integerValue];
+}
+
+-(void) setScore: (NSNumber *) holeScore forHole: (NSNumber *) holeNumber
+{
+    if(currentScoreArray == NULL) {
+        currentScoreArray = [[NSMutableArray alloc] init];
+    }
+    [currentScoreArray replaceObjectAtIndex: [holeNumber integerValue] withObject: holeScore];
+}
+
+-(void) resetGolferScoreArray
+{
+    
+}
+
 
 @end

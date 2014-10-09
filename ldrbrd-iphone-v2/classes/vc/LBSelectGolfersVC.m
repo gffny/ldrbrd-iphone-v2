@@ -10,6 +10,8 @@
 
 @interface LBSelectGolfersVC ()
 
+@property LBDataManager *dataManager;
+
 @end
 
 @implementation LBSelectGolfersVC
@@ -17,50 +19,32 @@
 @synthesize schdlRndBtn;
 @synthesize slctGlfClbsBtn;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+- (void)viewDidLoad {
 
-- (void)viewDidLoad
-{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.slctGlfClbsBtn addTarget:self action:@selector(slctGlfClbsBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
     [self.schdlRndBtn addTarget:self action:@selector(schdlRndBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [[LBDataManager sharedInstance] resetGolferScoreArray];
 }
 
-- (void)slctGlfClbsBtnClckd:(UIButton *)sender
-{
+- (void)slctGlfClbsBtnClckd:(UIButton *)sender {
+
     NSLog(@"select golf clubs button clicked");
-    [self performSegueWithIdentifier:@"seg_slctglfclbs" sender:self];
+    [self performSegueWithIdentifier:@"seg_plyglf" sender:self];
 }
 
-- (void)schdlRndBtnClckd:(UIButton *)sender
-{
+- (void)schdlRndBtnClckd:(UIButton *)sender {
+
     NSLog(@"schedule round button clicked");
     [self performSegueWithIdentifier:@"seg_schdlrnd" sender:self];
 }
-- (void)didReceiveMemoryWarning
-{
+
+- (void)didReceiveMemoryWarning {
+
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

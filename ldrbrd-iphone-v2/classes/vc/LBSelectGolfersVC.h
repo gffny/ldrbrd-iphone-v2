@@ -11,7 +11,6 @@
 @interface LBSelectGolfersVC : UIViewController
 
 @property (strong, nonatomic) IBOutlet UIButton *schdlRndBtn;
-
 @property (strong, nonatomic) IBOutlet UIButton *slctGlfClbsBtn;
 
 @end

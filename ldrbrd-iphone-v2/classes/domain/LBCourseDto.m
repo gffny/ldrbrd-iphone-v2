@@ -23,9 +23,11 @@
     return [courseHoleMap objectAtIndex: holeNumber];
 }
 
-- (void) initCourseHoleMap:(NSDictionary *)holeMap {
+- (void) initCourseHoleMap:(NSDictionary *)holeMap
+{
     courseHoleMap = [NSMutableArray array];
-    for (int key = 0; key < holeMap.count; key++) {
+    for (int key = 0; key < holeMap.count; key++)
+    {
         NSDictionary *hole = [holeMap objectForKey: [NSString stringWithFormat:@"%d", key]];
         if (hole != NULL) {
             [courseHoleMap addObject: [[LBCourseHoleDto alloc] initWithHoleDetails: hole]];
@@ -36,17 +38,39 @@
     }
 }
 
--(id) initWithCourseDetails: (NSDictionary *) jsonResult {
+- (void) initCourseHoleList: (NSArray *) holeList
+{
+    courseHoleMap = [NSMutableArray array];
+    for (int key = 0; key < holeList.count; key++)
+    {
+        NSDictionary *hole = [holeList objectAtIndex: key];
+        if(hole != NULL)
+        {
+            [courseHoleMap addObject: [[LBCourseHoleDto alloc] initWithHoleDetails:hole]];
+        } else
+        {
+            //TODO maybe handle this a little fucking better!
+            NSLog(@"course hole is null");
+        }
+    }
+    
+}
+
+-(id) initWithCourseDetails: (NSDictionary *) jsonResult
+{
     // if the object is instantiated properly
     if ( self = [super init] ) {
         // and the course information is ok
         if(jsonResult) {
             // set the data
-            [self setCourseId: jsonResult[@"id"]];
+            [self setCourseId: jsonResult[@"idString"]];
             [self setCourseName: jsonResult[@"courseName"]];
             [self setTeeColour: jsonResult[@"teeColour"]];
             [self setCourseImageRef: jsonResult[@"courseImageRef"]];            
             [self setSlopeIndex: [jsonResult[@"slopeIndex"] doubleValue]];
+            
+            // loop through the course hole list?
+            [self initCourseHoleList: jsonResult[@"courseHoleList"]];
             //and return it
             return self;
         }

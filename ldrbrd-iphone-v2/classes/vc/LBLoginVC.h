@@ -10,6 +10,8 @@
 
 @interface LBLoginVC : UIViewController
 
+@property (strong, nonatomic) IBOutlet UITextField *username;
+@property (strong, nonatomic) IBOutlet UITextField *password;
 @property (strong, nonatomic) IBOutlet UILabel *warningLabel;
 @property (strong, nonatomic) IBOutlet UIButton *loginButton;
 

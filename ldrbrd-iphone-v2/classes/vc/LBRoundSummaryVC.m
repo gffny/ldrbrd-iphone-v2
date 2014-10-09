@@ -9,8 +9,11 @@
 #import "LBRoundSummaryVC.h"
 #import "LBScorecardUtils.h"
 #import "LBDataManager.h"
+#import "LBRestManager.h"
+#import "LBRestFacade.h"
 
 @interface LBRoundSummaryVC ()
+
 //score
 @property (strong, nonatomic) IBOutlet UILabel *par;
 @property (strong, nonatomic) IBOutlet UILabel *score;
@@ -23,10 +26,15 @@
 @property (strong, nonatomic) IBOutlet UILabel *bogeyPlusCountValue;
 @end
 
+
 @implementation LBRoundSummaryVC
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+LBRestFacade *restFacade;
+
+@synthesize submitScorecardBtn;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -34,15 +42,32 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    LBDataManager *dataManager = [LBDataManager sharedInstance];
-    [self loadViewWithScoreArray: dataManager.currentScoreArray andCourse: dataManager.courseInPlay];
+    [self loadViewWithScoreArray: [[LBDataManager sharedInstance] currentScoreArray] andCourse: [[LBDataManager sharedInstance] courseInPlay]];
+    [self.submitScorecardBtn addTarget:self action:@selector(sbmtScrcrdBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)sbmtScrcrdBtnClckd:(UIButton *)sender {
+
+    NSLog(@"submit scorecard button clicked");
+    [restFacade asynchSubmitScorecard: [[LBDataManager sharedInstance] currentScoreArray] andScorecardId:[[LBDataManager sharedInstance] scorecardId] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"Scorecard Submit Success");
+        // move to new screen
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"Scorecard Submit Failure");
+        
+    }];
+
 }
 
 - (void) loadViewWithScoreArray: (NSArray*) scoreArray andCourse: (LBCourseDto*) course {
+
     int coursePar = course.par;
     int score = [LBScorecardUtils countScore: scoreArray];
     self.par.text = [NSString stringWithFormat:@"%i", coursePar];
@@ -59,8 +84,8 @@
     
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -76,8 +101,8 @@
 @synthesize holeScoreArray;
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -85,37 +110,38 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.dataManager = [LBDataManager sharedInstance];
     self.holeScoreArray = self.dataManager.currentScoreArray;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.bounces = NO;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+
     #warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
     #warning Incomplete method implementation.
     // Return the number of rows in the section.
     return self.holeScoreArray.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
     static NSString *cellIdentifier = @"LBRoundSummaryHoleCell";
     
     LBRoundSummaryHoleCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -123,22 +149,23 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"LBRoundSummaryHoleCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-    NSLog([NSString stringWithFormat:@" index path row %i", indexPath.row]);
+    NSLog([NSString stringWithFormat:@" index path row %ld", [[NSNumber numberWithInteger: indexPath.row] longValue]]);
     LBCourseDto *course = [self.dataManager.courseInPlay courseHoleWithNumber:indexPath.row];
-    cell.holeLabel.text = [NSString stringWithFormat:@"%i", (indexPath.row+1)];
-    cell.scoreLabel.text = [NSString stringWithFormat:@"%i", [[self.holeScoreArray objectAtIndex:indexPath.row]  integerValue]];
-    cell.parLabel.text = [NSString stringWithFormat:@"%li", course.par];
+    cell.holeLabel.text = [NSString stringWithFormat:@"%li", (indexPath.row+1)];
+    cell.scoreLabel.text = [NSString stringWithFormat:@"%i", [[self.holeScoreArray objectAtIndex:indexPath.row] integerValue]];
+    cell.parLabel.text = [NSString stringWithFormat:@"%i", course.par];
     cell.indexLabel.text = [NSString stringWithFormat:@"%i", course.index];
+
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+
     return 30;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
     LBRoundSummaryHoleCell *cell = (LBRoundSummaryHoleCell*)[tableView cellForRowAtIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
 }

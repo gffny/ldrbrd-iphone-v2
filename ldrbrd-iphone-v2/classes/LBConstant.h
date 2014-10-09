@@ -8,13 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-static NSString * const restPort = @":8090";
-static NSString * const restContext = @"/ldrbrd";
-static NSString * const restBaseURL = @"http://localhost";
-
-static NSString * const localBaseURL = @"http://localhost:8090/ldrbrd/";
-static NSString * const devbaseURL = @"http://localhost:8090/ldrbrd/";
-static NSString * const liveBaseURL= @"http://localhost:8090/ldrbrd/";
+static NSString * const localBaseURL = @"http://localhost:8090/";
+static NSString * const restBaseURL = @"http://localhost:8090/rest/";
 
 @interface LBConstant : NSObject
 

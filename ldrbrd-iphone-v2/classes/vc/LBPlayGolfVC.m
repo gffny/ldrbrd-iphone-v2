@@ -7,10 +7,12 @@
 //
 
 #import "LBDataManager.h"
+#import "LBRestManager.h"
 #import "LBPlayGolfVC.h"
 #import "LBGolfShotProfiler.h"
 #import "LBCourseDto.h"
 #import "LBDummyData.h"
+#import "LBLocationManager.h"
 
 @interface LBPlayGolfVC ()
 
@@ -22,11 +24,13 @@
 @property (nonatomic, strong) IBOutlet UILongPressGestureRecognizer *lpGesture;
 
 // HANDY
-@property (nonatomic, strong) LBDataManager *dataManager;
+@property (nonatomic, strong) LBLocationManager *locationManager;
 @property (nonatomic, strong) NSMutableArray *flightPathArray;
 @property (nonatomic, strong) LBCourseDto *course;
 @property (nonatomic) int holeScore;
 @property (nonatomic) int holePointer;
+
+@property (nonatomic) NSMutableArray *holeScoreArray;
 
 // UI LABELS
 @property (strong, nonatomic) IBOutlet UILabel *parLabel;
@@ -40,103 +44,142 @@
 
 @implementation LBPlayGolfVC
 
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
     // Initialise Gestures
     [self addGestureRecognisers];
 
-    self.dataManager = [LBDataManager sharedInstance];
+    [self setLocationManager: [LBLocationManager sharedInstance]];
+    [[LBDataManager sharedInstance] initialiseCourse: self.course];
+    NSLog(@"Playing scorecardId %@", [[LBDataManager sharedInstance] scorecardId]);
 
     // Initialise Storage
-    self.flightPathArray = [[NSMutableArray alloc] init];
-    self.course = [LBDummyData dummyCourse];
-    self.dataManager.currentScoreArray = [[NSMutableArray alloc] initWithCapacity:self.course.courseHoleMap.count];
-    self.dataManager.courseInPlay = self.course;
-    for(int i=0; i<self.course.courseHoleMap.count; i++) {
-        [self.dataManager.currentScoreArray setObject:[NSNumber numberWithInt:0] atIndexedSubscript:i];
+    [self setFlightPathArray: [[NSMutableArray alloc] init]];
+    if(self.course == NULL)
+    {
+        [self setCourse: [LBDummyData dummyCourse]];
+    }
+    
+    for(int i=0; i<self.course.courseHoleMap.count; i++)
+    {
+        [[LBDataManager sharedInstance] setScore: [NSNumber numberWithInt:0] forHole: [NSNumber numberWithInt:i]];
     }
     self.holeScore = 0;
     self.holePointer = 0;
+    self.holeScoreArray = [[NSMutableArray alloc] initWithCapacity: self.course.courseHoleMap.count];
 
     [self loadHoleIntoView: [self.course courseHoleWithNumber: self.holePointer]];
 }
 
-- (void) loadHoleIntoView: (LBCourseHoleDto *) courseHole {
-    self.holeNumberLabel.text = [NSString stringWithFormat:@"Hole Number: %li", courseHole.holeNumber];
-    self.parLabel.text = [NSString stringWithFormat: @"%li", courseHole.par];
-    self.distanceLabel.text = [NSString stringWithFormat: @" %li", courseHole.distance];
-    self.indexLabel.text = [NSString stringWithFormat: @"%li", courseHole.index];
-    self.descriptionLabel.text = courseHole.description;
-    self.holeScoreLabel.text = [NSString stringWithFormat: @"%i", self.holeScore];
+- (void) loadCourseInView: (LBCourseDto *) courseToLoad
+{
+    [self setCourse: courseToLoad];
 }
 
-- (void)handleGesture:(UILongPressGestureRecognizer *)gesture {
+- (void) loadHoleIntoView: (LBCourseHoleDto *) courseHole
+{
+
+    [self.holeNumberLabel setText: [NSString stringWithFormat:@"Hole Number: %li", courseHole.holeNumber]];
+    [self.parLabel setText: [NSString stringWithFormat: @"%li", courseHole.par]];
+    [self.distanceLabel setText: [NSString stringWithFormat: @" %li", courseHole.distance]];
+    [self.indexLabel setText: [NSString stringWithFormat: @"%li", courseHole.index]];
+    [self.descriptionLabel setText: courseHole.description];
+    [self.holeScoreLabel setText: [NSString stringWithFormat: @"%i", self.holeScore]];
+}
+
+- (void) handleGesture:(UILongPressGestureRecognizer *)gesture
+{
     
-    if([gesture state] == UIGestureRecognizerStateBegan) {
+    if([gesture state] == UIGestureRecognizerStateBegan)
+    {
         // clear flightPath array
         [self.flightPathArray removeAllObjects];
     }
+    [[LBLocationManager sharedInstance] currentLocation];
     CGPoint location = [gesture locationInView:gesture.view];
     [self.flightPathArray addObject:[NSValue valueWithCGPoint:location]];
-    if([gesture state] == UIGestureRecognizerStateEnded || [gesture state] == UIGestureRecognizerStateFailed) {
+    if([gesture state] == UIGestureRecognizerStateEnded || [gesture state] == UIGestureRecognizerStateFailed)
+    {
         self.holeScore++;
-        self.holeScoreLabel.text = [NSString stringWithFormat: @"%i", self.holeScore];
-        LBGolfShotProfile *shotProfile = [LBGolfShotProfiler profileShotWithPoints: self.flightPathArray];
+        [self.holeScoreLabel setText: [NSString stringWithFormat: @"%i", self.holeScore]];
+        //LBGolfShotProfile *shotProfile = [LBGolfShotProfiler profileShotWithPoints: self.flightPathArray];
     }
+    // add score to hole @ gps location
+}
+
+
+- (IBAction) showGestureForTapRecognizer:(UITapGestureRecognizer *)recognizer
+{
+    
+    self.holeScore++;
+    [self.holeScoreLabel setText: [NSString stringWithFormat: @"%i", self.holeScore]];
     
     // add score to hole @ gps location
 }
 
-- (void)oneFingerSwipeLeft:(UITapGestureRecognizer *)recognizer {
+
+- (void) oneFingerSwipeLeft:(UITapGestureRecognizer *)recognizer
+{
     // go forward hole
-    if(self.holePointer < self.course.courseHoleMap.count) {
+    if(self.holePointer < self.course.courseHoleMap.count)
+    {
         NSLog(@"storing the score %i for hole %i", self.holeScore, [self actualHoleNumber]);
-        [self.dataManager.currentScoreArray setObject: [NSNumber numberWithInteger:self.holeScore] atIndexedSubscript: self.holePointer];
-        if(self.holePointer < self.course.courseHoleMap.count-1) {
+        [[LBDataManager sharedInstance] setScore: [NSNumber numberWithInt:self.holeScore] forHole: [NSNumber numberWithInt: self.holePointer]];
+        [LBRestManager recordHole: [self actualHoleNumber] withScore: self.holeScore];
+        if(self.holePointer < self.course.courseHoleMap.count-1)
+        {
             self.holePointer++;
             NSLog(@"going to hole %i", [self actualHoleNumber]);
-            if([self.dataManager.currentScoreArray objectAtIndex:self.holePointer]) {
-                self.holeScore = [[self.dataManager.currentScoreArray objectAtIndex:self.holePointer] integerValue];
-            } else {
+            if([[LBDataManager sharedInstance] getScoreForHole: [NSNumber numberWithInt: self.holePointer]])
+            {
+                [self setHoleScore: [[NSNumber numberWithInteger:[[LBDataManager sharedInstance] getScoreForHole: [NSNumber numberWithInt: self.holePointer]]] intValue]];
+            }
+            else
+            {
                 self.holeScore = 0;
             }
             [self loadHoleIntoView: [self.course courseHoleWithNumber:self.holePointer]];
-        } else {
+        }
+        else
+        {
             // segue to review
             [self performSegueWithIdentifier:@"seg_shwsmmry" sender:self];
         }
     }
 }
 
-- (void)oneFingerSwipeRight:(UITapGestureRecognizer *)recognizer {
+- (void) oneFingerSwipeRight:(UITapGestureRecognizer *)recognizer
+{
     // go back hole
-    if(self.holePointer > 0) {
+    if(self.holePointer > 0)
+    {
         NSLog(@"storing the score %i for hole %i", self.holeScore, [self actualHoleNumber]);
-        [self.dataManager.currentScoreArray setObject: [NSNumber numberWithInteger:self.holeScore] atIndexedSubscript: self.holePointer];
+        [[LBDataManager sharedInstance] setScore: [NSNumber numberWithInt:self.holeScore] forHole: [NSNumber numberWithInt: self.holePointer]];
+        [LBRestManager recordHole: [self actualHoleNumber] withScore: self.holeScore];
         self.holePointer--;
         NSLog(@"going to hole %i", [self actualHoleNumber]);
-        if([self.dataManager.currentScoreArray objectAtIndex:self.holePointer]) {
-            self.holeScore = [[self.dataManager.currentScoreArray objectAtIndex:self.holePointer] integerValue];
-        } else {
+        if([[LBDataManager sharedInstance] getScoreForHole: [NSNumber numberWithInt: self.holePointer]])
+        {
+            [self setHoleScore: [[NSNumber numberWithInteger:[[LBDataManager sharedInstance] getScoreForHole: [NSNumber numberWithInt: self.holePointer]]] intValue]];
+        }
+        else
+        {
             self.holeScore = 0;
         }
         [self loadHoleIntoView: [self.course courseHoleWithNumber:self.holePointer]];
     }
 }
 
-- (IBAction)showGestureForTapRecognizer:(UITapGestureRecognizer *)recognizer {
-    
-    // add score to hole @ gps location
-}
-
--(int) actualHoleNumber {
+-(int) actualHoleNumber
+{    
     return self.holePointer+1;
 }
 
-- (void)addGestureRecognisers {
+- (void) addGestureRecognisers
+{
     
     // Create and initialize a tap gesture
     self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showGestureForTapRecognizer:)];
@@ -158,14 +201,14 @@
     [self.view addGestureRecognizer: self.lpGesture];
 }
 
-- (void)didReceiveMemoryWarning
+- (void) didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
     
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 
 }

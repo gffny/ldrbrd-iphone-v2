@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface LBPlayGolfVC : UIViewController
-- (IBAction)playRound:(id)sender forEvent:(UIEvent *)event;
+//- (IBAction)playRound:(id)sender forEvent:(UIEvent *)event;
 - (void) observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary*)change context:(void*)context;
+- (void) loadCourseInView: (LBCourseDto *) courseToLoad;
 @end

@@ -59,7 +59,7 @@
     self = [super initWithCoder:decoder];
     if (self) {
         // Custom initialization
-        NSLog(@"blah");
+        NSLog(@"loading main lbrdbrd-app view");
     }
     return self;
 

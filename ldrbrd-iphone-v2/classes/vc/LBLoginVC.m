@@ -8,6 +8,7 @@
 
 #import "LBLoginVC.h"
 #import "LBRestFacade.h"
+#import "LBScoreService.h"
 
 @interface LBLoginVC ()
 
@@ -15,8 +16,12 @@
 
 @implementation LBLoginVC
 
+@synthesize username;
+@synthesize password;
 @synthesize warningLabel;
 @synthesize loginButton;
+
+LBRestFacade *restFacade;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,14 +35,26 @@
 - (void)loginAction:(UIButton *)sender
 {
     NSLog(@"login action: really should check credentials");
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [self performSegueWithIdentifier:@"seg_auth" sender:self];
+    NSLog(username.text);
+    [restFacade asynchAuthenticateWithUsername:username.text andPassword:password.text withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        NSLog(@"Auth Success");
+        // move to new screen
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self performSegueWithIdentifier:@"seg_auth" sender:self];
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"Auth Failure");
+        [warningLabel setText: @"authentication failed"];
+
+    }];
 }
 
 - (void)viewDidLoad
 {
+    restFacade = [[LBRestFacade alloc] init];
     // Do any additional setup after loading the view.
-    LBRestFacade *restFacade = [[LBRestFacade alloc] init];
     [restFacade asynchBackendOnlineCheckWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [warningLabel setText: @"Backend Online"];
         [super viewDidLoad];
