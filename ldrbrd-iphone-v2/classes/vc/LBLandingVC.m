@@ -1,20 +1,19 @@
 //
-//  LBLoginVC.m
+//  LBLandingVC.m
 //  ldrbrd-iphone-v2
 //
-//  Created by John D. Gaffney on 4/9/14.
+//  Created by John D. Gaffney on 10/9/14.
 //  Copyright (c) 2014 gffny.com. All rights reserved.
 //
 
-#import "LBLoginVC.h"
+#import "LBLandingVC.h"
 #import "LBRestFacade.h"
-#import "LBScoreService.h"
 
-@interface LBLoginVC ()
+@interface LBLandingVC ()
 
 @end
 
-@implementation LBLoginVC
+@implementation LBLandingVC
 
 @synthesize username;
 @synthesize password;
@@ -37,17 +36,17 @@ LBRestFacade *restFacade;
     NSLog(@"login action: really should check credentials");
     NSLog(username.text);
     [restFacade asynchAuthenticateWithUsername:username.text andPassword:password.text withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-
+        
         NSLog(@"Auth Success");
         // move to new screen
         [self dismissViewControllerAnimated:YES completion:nil];
         [self performSegueWithIdentifier:@"seg_auth" sender:self];
-
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         NSLog(@"Auth Failure");
         [warningLabel setText: @"authentication failed"];
-
+        
     }];
 }
 
@@ -58,7 +57,7 @@ LBRestFacade *restFacade;
     [restFacade asynchBackendOnlineCheckWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [warningLabel setText: @"Backend Online"];
         [super viewDidLoad];
-
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Backend Offline");
         //SOMEHOW SHOW THE BACKEND IS OFFLINE
@@ -66,7 +65,7 @@ LBRestFacade *restFacade;
         //Maybe have an offline mode?!
         //[loginButton setEnabled:NO];
         [super viewDidLoad];
-
+        
     }];
     [self.loginButton addTarget:self action:@selector(loginAction:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -78,3 +77,4 @@ LBRestFacade *restFacade;
 }
 
 @end
+
