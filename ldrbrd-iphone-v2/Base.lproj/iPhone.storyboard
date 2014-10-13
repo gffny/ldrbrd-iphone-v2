@@ -415,7 +415,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Ow-Fo-5kL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-592" y="1735"/>
+            <point key="canvasLocation" x="-562" y="1735"/>
         </scene>
         <!--Lb NewsfeedVC-->
         <scene sceneID="Cg6-9C-Io7">
@@ -866,11 +866,12 @@
                         <outlet property="score" destination="0fs-wH-evf" id="qUd-3o-ZvI"/>
                         <outlet property="submitScorecardBtn" destination="Xu3-oR-DTT" id="0ia-N0-3sD"/>
                         <outlet property="toParValue" destination="DHE-Bm-RKl" id="jDJ-BX-wIy"/>
+                        <segue destination="CGr-xJ-8M4" kind="modal" identifier="seg_sgnscrcrd" id="FaR-HF-Hq0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vUz-19-gxF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2813" y="529"/>
+            <point key="canvasLocation" x="2781" y="529"/>
         </scene>
         <!--Round Summary Hole TableVC-->
         <scene sceneID="maA-hc-80t">
@@ -888,7 +889,35 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mtD-ea-aCy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3384" y="678"/>
+            <point key="canvasLocation" x="3380" y="628"/>
+        </scene>
+        <!--Sign ScorecardVC-->
+        <scene sceneID="bQl-PG-ZZe">
+            <objects>
+                <viewController id="CGr-xJ-8M4" customClass="LBSignScorecardVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Ig-cd-ZIa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="H9L-G4-1BV">
+                                <rect key="frame" x="54" y="386" width="213" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="30"/>
+                                <state key="normal" title="Sign Scorecard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="r87-mZ-PnN"/>
+                    <connections>
+                        <outlet property="sgnScrcrdBtn" destination="H9L-G4-1BV" id="Fwf-SH-EHU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="COR-1m-AaU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3837" y="529"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="BGm-AC-3HA">

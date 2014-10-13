@@ -47,6 +47,7 @@ NSMutableArray *courseList;
     [scroller setScrollEnabled:YES];
     [scroller setContentSize:CGSizeMake(320, 1000)];
     [scroller setDelegate:self];
+    [handicapField setDelegate:self];
     
     [[[LBScoreService alloc] init] asynchRetrieveCourseList:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Retrieve Success %@", operation.responseString);
@@ -65,6 +66,9 @@ NSMutableArray *courseList;
         // todo eh aaah
     }];
     [self setPreviousScrollViewYOffset: 1.0f];
+    CGRect frameRect = handicapField.frame;
+    frameRect.size.height = 50;
+    handicapField.frame = frameRect;
     [self.playGolfBtn addTarget:self action:@selector(playNowBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -222,6 +226,32 @@ NSMutableArray *courseList;
         [self.navigationController.navigationBar setFrame:frame];
         [self updateBarButtonItems:alpha];
     }];
+}
+
+// handle the keyboard - move the display up so the text input for handicap can be seen
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+//    if(textField == self.handicapField)
+//    {
+//        [self.handicapField becomeFirstResponder];
+//    }
+//    else
+    if(textField == self.handicapField){
+        [self.handicapField resignFirstResponder];
+        CGPoint bottomOffset = CGPointMake(0, 0);
+        [scroller setContentOffset:bottomOffset animated:YES];
+        [textField resignFirstResponder];
+    }
+    return YES;
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField == self.handicapField)
+    {
+        CGPoint bottomOffset = CGPointMake(0, 700);
+        [scroller setContentOffset:bottomOffset animated:YES];
+    }
 }
 
 @end

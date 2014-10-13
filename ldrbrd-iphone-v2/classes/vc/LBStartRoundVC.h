@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LBStartRoundVC : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate, UIScrollViewDelegate> {
+@interface LBStartRoundVC : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate, UIScrollViewDelegate, UITextFieldDelegate> {
 
     IBOutlet UIScrollView *scroller;
     

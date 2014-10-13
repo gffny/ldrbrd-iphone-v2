@@ -57,10 +57,13 @@ LBRestFacade *restFacade;
         
         NSLog(@"Scorecard Submit Success");
         // move to new screen
+        [self performSegueWithIdentifier:@"seg_sgnscrcrd" sender:self];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         NSLog(@"Scorecard Submit Failure");
+        
+        // surface error
         
     }];
 
@@ -89,6 +92,7 @@ LBRestFacade *restFacade;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end
 
