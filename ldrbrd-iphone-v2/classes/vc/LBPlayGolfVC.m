@@ -54,7 +54,7 @@
 
     [self setLocationManager: [LBLocationManager sharedInstance]];
     [[LBDataManager sharedInstance] initialiseCourse: self.course];
-    NSLog(@"Playing scorecardId %@", [[LBDataManager sharedInstance] scorecardId]);
+    NSLog(@"Playing scorecardId %@", [[LBDataManager sharedInstance] getScorecardId]);
 
     // Initialise Storage
     [self setFlightPathArray: [[NSMutableArray alloc] init]];

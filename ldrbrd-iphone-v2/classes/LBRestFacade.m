@@ -7,6 +7,7 @@
 //
 
 #import "LBRestFacade.h"
+#import "LBDataManager.h"
 #import "LBConstant.h"
 
 @implementation LBRestFacade
@@ -27,7 +28,7 @@ failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
     [manager GET:[NSString stringWithFormat:@"%@health", restBaseURL] parameters:Nil success: success failure: failure];
 }
 
--(void) asynchAuthenticateWithUsername:(NSString *) username andPassword:(NSString *) password withSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
+-(void) asynchAuthenticateWithUsername:(NSString *) username andPassword:(NSString *) password withSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))successMethod failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
     //TODO Make the following four lines into a method
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -37,7 +38,57 @@ failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
     [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager setRequestSerializer: requestSerializer];
     
-    [manager POST:[NSString stringWithFormat:@"http://localhost:8090/j_spring_security_check?j_username=%@&j_password=%@", username, password] parameters:Nil success:success failure:failure];
+    [manager POST:[NSString stringWithFormat:@"%@j_spring_security_check?j_username=%@&j_password=%@", localBaseURL, username, password] parameters:Nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        // do post login, load user profile, etc
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        AFHTTPRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
+        [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [manager setRequestSerializer: requestSerializer];
+
+        [manager POST:[NSString stringWithFormat:@"%@profile/digest", restBaseURL] parameters:Nil success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSDictionary *golferDigest = (NSDictionary*)responseObject;
+            
+            NSDictionary *golfer = [golferDigest dictionaryForKey:@"golfer"];
+            NSArray *favouriteCourseList;
+            NSArray *lastXScorecardList;
+            NSArray *upcomingCompetitionEntryList;
+            NSArray *upcomingNonCompetitionRoundList;
+            NSObject *hasActiveScorecard = [golferDigest objectForKey:@"hasActiveScorecard"];
+            
+            // initialise the following objects
+//            favouriteCourseList = ();
+//            golfer = {
+//                    emailAddress = "gaffney.ie@gmail.com";
+//                    enabled = 1;
+//                    failedLoginAttemptsCount = 0;
+//                    favouriteCourseList = "<null>";
+//                    firstName = John;
+//                    handDominanceValue = RIGHT;
+//                    handedness = RIGHT;
+//                    handicap = 26;
+//                    id = 1;
+//                    idString = 1;
+//                    lastLogin = "<null>";
+//                    lastLoginDT = "<null>";
+//                    lastName = Gaffney;
+//                    password = "<null>";
+//                    profileHandle = gffny;
+//                    profileImageRef = "<null>";
+//            };
+//            lastXScorecardList = ( );
+//            upcomingCompetitionEntryList = ( );
+//            upcomingNonCompetitionRoundList = ( );
+
+            [[LBDataManager sharedInstance] initialiseScorecard: nil];
+            successMethod(operation, responseObject);
+        }
+        failure:failure];
+        
+    } failure:failure];
 
 }
 
@@ -51,8 +102,7 @@ failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
     [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [manager setRequestSerializer: requestSerializer];
     
-    [manager POST:[NSString stringWithFormat:@"http://localhost:8090/rest/scorecard/start?courseId=%@", courseId] parameters:Nil success:success failure:failure];
-
+    [manager POST:[NSString stringWithFormat:@"%@start?courseId=%@", restScorecardURL, courseId] parameters:Nil success:success failure:failure];
 }
 
 -(void) asynchSubmitScorecard:(NSArray *) scorecard andScorecardId:(NSString *) scorecardId withSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
@@ -74,7 +124,7 @@ failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
     
     NSLog(@"JSON String: %@", jsonString);
 
-    [manager POST:@"http://localhost:8090/rest/scorecard/submit" parameters:scorecardSubmission success:success failure:failure];
+    [manager POST:[NSString stringWithFormat: @"%@submit", restScorecardURL] parameters:scorecardSubmission success:success failure:failure];
 }
 
 -(void) asynchSgnScorecard:(NSString *) scorecardId withSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
@@ -94,7 +144,7 @@ failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
     
     NSLog(@"JSON String: %@", jsonString);
     
-    [manager POST:@"http://localhost:8090/rest/scorecard/sign" parameters:scorecardSubmission success:success failure:failure];
+    [manager POST:[NSString stringWithFormat:@"%@sign", restScorecardURL] parameters:scorecardSubmission success:success failure:failure];
 
 }
 

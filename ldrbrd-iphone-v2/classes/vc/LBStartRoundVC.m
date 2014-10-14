@@ -150,7 +150,9 @@ NSMutableArray *courseList;
         if([responseObject isKindOfClass:[NSDictionary class]]) {
             NSString *scorecardId = [responseObject valueForKey: @"idString"];
             NSLog(@"Start Scorecard Success %@", scorecardId);
-            [[LBDataManager sharedInstance] initialiseScorecardId: scorecardId];
+            
+            //TODO get the response object for scorecard and initialise the LBScorecard
+            [[LBDataManager sharedInstance] initialiseScorecard: scorecardId];
             [self performSegueWithIdentifier:@"seg_plyrnd" sender:self];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -53,7 +53,7 @@ LBRestFacade *restFacade;
 - (void)sbmtScrcrdBtnClckd:(UIButton *)sender {
 
     NSLog(@"submit scorecard button clicked");
-    [restFacade asynchSubmitScorecard: [[LBDataManager sharedInstance] currentScoreArray] andScorecardId:[[LBDataManager sharedInstance] scorecardId] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [restFacade asynchSubmitScorecard: [[LBDataManager sharedInstance] currentScoreArray] andScorecardId:[[LBDataManager sharedInstance] getScorecardId] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSLog(@"Scorecard Submit Success");
         // move to new screen

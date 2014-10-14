@@ -622,7 +622,7 @@
             <objects>
                 <viewController id="Btc-cn-0GO" customClass="LBPlayGolfVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Az9-JT-NKD">
-                        <rect key="frame" x="0.0" y="64" width="320" height="936"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="NGf-8c-Tta" customClass="LBCourseDescription">
@@ -720,7 +720,7 @@
             <objects>
                 <viewController id="MSn-wV-mI5" customClass="LBRoundSummaryVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zj5-jj-lY7">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Round Summary" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GXH-he-V1E">
@@ -896,7 +896,7 @@
             <objects>
                 <viewController id="CGr-xJ-8M4" customClass="LBSignScorecardVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Ig-cd-ZIa">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="H9L-G4-1BV">
@@ -1312,6 +1312,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="cX0-E4-C13"/>
-        <segue reference="Dts-kC-uyx"/>
+        <segue reference="oTw-Ao-8OB"/>
     </inferredMetricsTieBreakers>
 </document>

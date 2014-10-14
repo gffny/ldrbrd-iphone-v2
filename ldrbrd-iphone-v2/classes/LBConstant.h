@@ -10,6 +10,7 @@
 
 static NSString * const localBaseURL = @"http://localhost:8090/";
 static NSString * const restBaseURL = @"http://localhost:8090/rest/";
+static NSString * const restScorecardURL = @"http://localhost:8090/rest/scorecard/";
 
 @interface LBConstant : NSObject
 

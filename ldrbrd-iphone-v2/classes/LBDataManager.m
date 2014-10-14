@@ -7,10 +7,11 @@
 //
 
 #import "LBDataManager.h"
+#import "LBScorecardDto.h"
 
 @implementation LBDataManager
 
-@synthesize scorecardId;
+@synthesize scorecard;
 @synthesize currentScoreArray;
 
 @synthesize golferProfile;
@@ -55,17 +56,17 @@
     }
 }
 
--(void) initialiseScorecardId: (NSString *) newScorecardId
+-(void) initialiseScorecard: (LBScorecardDto *)aScorecard
 {
     if(self)
     {
-        self.scorecardId = newScorecardId;
+        self.scorecard = aScorecard;
     }
 }
 
 -(BOOL) isInRound
 {
-    if(scorecardId != NULL && currentScoreArray != NULL)
+    if(scorecard != NULL && currentScoreArray != NULL)
     {
         return YES;
     }

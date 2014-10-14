@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "LBCourseDto.h"
+#import "LBScorecardDto.h"
 
 @interface LBDataManager : NSObject
 
 /* SCORECARD INFO */
-@property (nonatomic, strong) NSString *scorecardId;
+//@property (nonatomic, strong) NSString *scorecardId;
+@property (nonatomic, strong) LBScorecardDto *scorecard;
 @property (nonatomic, strong) NSMutableArray *currentScoreArray;
 
 /* GOLFER INFO */
@@ -30,10 +32,13 @@
 
 /* SCORECARD METHODS */
 -(void) initialiseCourse: (LBCourseDto *) course;
--(void) initialiseScorecardId: (NSString *) newScorecardId;
+-(void) initialiseScorecard: (LBScorecardDto *) scorecard;
+-(void) setScore: (NSNumber *) holeScore forHole: (NSNumber *) holeNumber;
+
 -(BOOL) isInRound;
 -(NSInteger) getScoreForHole: (NSNumber *) holeNumber;
--(void) setScore: (NSNumber *) holeScore forHole: (NSNumber *) holeNumber;
+-(NSString *) getScorecardId;
+
 -(void) resetGolferScoreArray;
 
 
