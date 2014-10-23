@@ -7,20 +7,16 @@
 //
 
 #import "LBDataManager.h"
-#import "LBScorecardDto.h"
+#import "LBScorecard.h"
+
+@interface LBDataManager ()
+
+// hidden from other classes 
+@property (nonatomic, retain) LBCourse *courseInPlay;
+
+@end
 
 @implementation LBDataManager
-
-@synthesize scorecard;
-@synthesize currentScoreArray;
-
-@synthesize golferProfile;
-@synthesize golfClubArray;
-@synthesize newsItemArray;
-
-@synthesize favouriteCourseArray;
-@synthesize localCourseArray;
-@synthesize courseInPlay;
 
 +(LBDataManager*) sharedInstance
 {
@@ -43,30 +39,38 @@
     return self;
 }
 
--(void) initialiseCourse: (LBCourseDto *) course
+-(void) resetScorecardData
+{
+    
+    _courseInPlay = NULL;
+    _currentScoreArray = NULL;
+    _scorecard = NULL;
+}
+
+-(void) initialiseCourse: (LBCourse *) course
 {
     if(self)
     {
-        courseInPlay = course;
-        currentScoreArray = [[NSMutableArray alloc] initWithCapacity: course.courseHoleMap.count];
-        for(int i=0;i<course.courseHoleMap.count;i++)
-        {
-            [currentScoreArray setObject:[NSNumber numberWithInt:0] atIndexedSubscript:i];
-        }
+        _courseInPlay = course;
+        _currentScoreArray = [self initialiseScoreArray: course.courseHoleList.count];
     }
 }
 
--(void) initialiseScorecard: (LBScorecardDto *)aScorecard
+-(LBCourse *) course
 {
-    if(self)
+    if(_scorecard != NULL && _scorecard.course != NULL)
     {
-        self.scorecard = aScorecard;
+        return _scorecard.course;
+    }
+    else
+    {
+        return _courseInPlay;
     }
 }
 
 -(BOOL) isInRound
 {
-    if(scorecard != NULL && currentScoreArray != NULL)
+    if(_scorecard != NULL && _currentScoreArray != NULL)
     {
         return YES;
     }
@@ -75,9 +79,9 @@
 
 -(NSInteger) getScoreForHole: (NSNumber *) holeNumber
 {
-    if(currentScoreArray != NULL && [holeNumber intValue] <= currentScoreArray.count)
+    if(_currentScoreArray != NULL && [holeNumber intValue] <= _currentScoreArray.count)
     {
-        NSNumber *score = [currentScoreArray objectAtIndex: [holeNumber integerValue]];
+        NSNumber *score = [_currentScoreArray objectAtIndex: [holeNumber integerValue]];
         return [score integerValue];
     }
     return [[NSNumber numberWithInt: 0] integerValue];
@@ -85,10 +89,14 @@
 
 -(void) setScore: (NSNumber *) holeScore forHole: (NSNumber *) holeNumber
 {
-    if(currentScoreArray == NULL) {
-        currentScoreArray = [[NSMutableArray alloc] init];
+    if(_currentScoreArray == NULL) {
+        if(_scorecard.course != NULL && _scorecard.course.courseHoleList != NULL) {
+            _currentScoreArray = [self initialiseScoreArray: _scorecard.course.courseHoleList.count];
+        } else {
+            _currentScoreArray = [self initialiseScoreArray: 18];
+        }
     }
-    [currentScoreArray replaceObjectAtIndex: [holeNumber integerValue] withObject: holeScore];
+    [_currentScoreArray replaceObjectAtIndex: [holeNumber integerValue] withObject: holeScore];
 }
 
 -(void) resetGolferScoreArray
@@ -96,5 +104,14 @@
     
 }
 
+-(NSMutableArray *) initialiseScoreArray: (long) size
+{
+    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity: size];
+    for(int i=0;i<size;i++)
+    {
+        [array setObject:[NSNumber numberWithInt:0] atIndexedSubscript:i];
+    }
+    return array;
+}
 
 @end

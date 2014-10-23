@@ -11,10 +11,10 @@
 
 @implementation LBDummyData
 
-+ (LBCourseDto *) dummyCourse {
-    LBCourseDto *course = [LBCourseDto courseWithProperties: [LBJsonData courseJson]];
-    [course setCourseName: @"Fresh Pond"];
-    return course;
++ (LBCourse *) dummyCourse {
+//    LBCourse *course = [LBCourse courseWithProperties: [LBJsonData courseJson]];
+//    [course setCourseName: @"Fresh Pond"];
+    return [[LBCourse alloc] init];
 }
 
 @end

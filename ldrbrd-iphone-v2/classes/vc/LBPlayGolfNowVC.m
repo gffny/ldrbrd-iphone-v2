@@ -94,7 +94,7 @@ NSMutableArray *courseList;
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    NSLog([NSString stringWithFormat:@"Row Number %ld", row]);
+    NSLog(@"%@", [NSString stringWithFormat:@"Row Number %ld", row]);
     if(courseList != NULL) {
         [self updateCourseInfo: [courseList objectAtIndex: row]];
     }
@@ -126,7 +126,7 @@ NSMutableArray *courseList;
     if([destVc isKindOfClass: [LBPlayGolfVC class]])
     {
         LBPlayGolfVC *playGolfVC = (LBPlayGolfVC *)destVc;
-        [playGolfVC loadCourseInView: [[LBCourseDto alloc] initWithCourseDetails: [courseList objectAtIndex: [coursePicker selectedRowInComponent:0]]]];
+        [playGolfVC loadCourseInView: [[LBCourse alloc] init]];//initWithCourseDetails: [courseList objectAtIndex: [coursePicker selectedRowInComponent:0]]]];
     }
     // Pass the selected object to the new view controller.
 }
@@ -134,12 +134,12 @@ NSMutableArray *courseList;
 - (void)playNowBtnClckd:(UIButton *)sender
 {
     NSLog(@"play now button clicked");
-    NSString *courseId = [[[LBCourseDto alloc] initWithCourseDetails: [courseList objectAtIndex: [coursePicker selectedRowInComponent:0]]] courseId];
+    NSString *courseId = [[[LBCourse alloc] init] idString]; //initWithCourseDetails: [courseList objectAtIndex: [coursePicker selectedRowInComponent:0]]] courseId];
     [[[LBRestFacade alloc] init] asynchStartScorecardOnCourse: courseId withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if([responseObject isKindOfClass:[NSDictionary class]]) {
-            NSString *scorecardId = [responseObject valueForKey: @"idString"];
-            NSLog(@"Start Scorecard Success %@", scorecardId);
-            [[LBDataManager sharedInstance] initialiseScorecard: scorecardId];
+            LBScorecard *scorecard = [[LBScorecard alloc] initWithDictionary:(NSDictionary*) responseObject error: nil];
+            NSLog(@"Start Scorecard Success %@", [scorecard idString]);
+            [[LBDataManager sharedInstance] setScorecard: scorecard];
             [self performSegueWithIdentifier:@"seg_plyrnd" sender:self];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

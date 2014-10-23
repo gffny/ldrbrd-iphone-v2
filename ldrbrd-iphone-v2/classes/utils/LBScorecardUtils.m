@@ -19,55 +19,55 @@
 }
 
 
-+(int) countBelowPar: (NSArray*) scoreArray onCourse: (LBCourseDto *) course {
-    if(scoreArray.count <= course.courseHoleMap.count) {
-        int count = 0;
-        for(int i=0; i<scoreArray.count; i++) {
-            if([[scoreArray objectAtIndex:i] integerValue] - [course courseHoleWithNumber:i].par < 0) {
-                count+=1;
-            }
-        }
-        return count;
-    }
++(int) countBelowPar: (NSArray*) scoreArray onCourse: (LBCourse *) course {
+//    if(scoreArray.count <= course.courseHoleMap.count) {
+//        int count = 0;
+//        for(int i=0; i<scoreArray.count; i++) {
+//            if([[scoreArray objectAtIndex:i] integerValue] - [course courseHoleWithNumber:i].par < 0) {
+//                count+=1;
+//            }
+//        }
+//        return count;
+//    }
     return -1;
 }
 
-+(int) countBogeyPlus: (NSArray*) scoreArray onCourse: (LBCourseDto *) course {
-    if(scoreArray.count <= course.courseHoleMap.count) {
-        int count = 0;
-        for(int i=0; i<scoreArray.count; i++) {
-            if([[scoreArray objectAtIndex:i] integerValue] - [course courseHoleWithNumber:i].par > 1) {
-                count+=1;
-            }
-        }
-        return count;
-    }
++(int) countBogeyPlus: (NSArray*) scoreArray onCourse: (LBCourse *) course {
+//    if(scoreArray.count <= course.courseHoleMap.count) {
+//        int count = 0;
+//        for(int i=0; i<scoreArray.count; i++) {
+//            if([[scoreArray objectAtIndex:i] integerValue] - [course courseHoleWithNumber:i].par > 1) {
+//                count+=1;
+//            }
+//        }
+//        return count;
+//    }
     return -1;
 }
 
-+(int) countBogey: (NSArray*) scoreArray onCourse: (LBCourseDto *) course {
-    if(scoreArray.count <= course.courseHoleMap.count) {
-        int count = 0;
-        for(int i=0; i<scoreArray.count; i++) {
-            if([[scoreArray objectAtIndex:i] integerValue] - [course courseHoleWithNumber:i].par == 1) {
-                count+=1;
-            }
-        }
-        return count;
-    }
++(int) countBogey: (NSArray*) scoreArray onCourse: (LBCourse *) course {
+//    if(scoreArray.count <= course.courseHoleMap.count) {
+//        int count = 0;
+//        for(int i=0; i<scoreArray.count; i++) {
+//            if([[scoreArray objectAtIndex:i] integerValue] - [course courseHoleWithNumber:i].par == 1) {
+//                count+=1;
+//            }
+//        }
+//        return count;
+//    }
     return -1;
 }
 
-+(int) countPar: (NSArray*) scoreArray onCourse: (LBCourseDto *) course {
-    if(scoreArray.count <= course.courseHoleMap.count) {
-        int count = 0;
-        for(int i=0; i<scoreArray.count; i++) {
-            if([[scoreArray objectAtIndex:i] integerValue] - [course courseHoleWithNumber:i].par == 0) {
-                count+=1;
-            }
-        }
-        return count;
-    }
++(int) countPar: (NSArray*) scoreArray onCourse: (LBCourse *) course {
+//    if(scoreArray.count <= course.courseHoleMap.count) {
+//        int count = 0;
+//        for(int i=0; i<scoreArray.count; i++) {
+//            if([[scoreArray objectAtIndex:i] integerValue] - [course courseHoleWithNumber:i].par == 0) {
+//                count+=1;
+//            }
+//        }
+//        return count;
+//    }
     return -1;
 }
 

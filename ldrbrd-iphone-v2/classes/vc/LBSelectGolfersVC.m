@@ -25,7 +25,6 @@
     // Do any additional setup after loading the view.
     [self.slctGlfClbsBtn addTarget:self action:@selector(slctGlfClbsBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
     [self.schdlRndBtn addTarget:self action:@selector(schdlRndBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
-    [[LBDataManager sharedInstance] resetGolferScoreArray];
 }
 
 - (void)slctGlfClbsBtnClckd:(UIButton *)sender {

@@ -41,31 +41,25 @@ LBRestFacade *restFacade;
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
- 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
- scorecardId
-}
-*/
 - (void)sgnScrcrdBtnClckd:(UIButton *)sender {
     
     NSLog(@"submit scorecard button clicked");
-    [restFacade asynchSgnScorecard:[[LBDataManager sharedInstance] getScorecardId] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [restFacade asynchSgnScorecard:[[[LBDataManager sharedInstance] scorecard] idString] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSLog(@"Scorecard Sign Success");
-        // move to new screen
+        [[LBDataManager sharedInstance] resetScorecardData];
+        UINavigationController *first = [self.storyboard instantiateViewControllerWithIdentifier:@"main"];
+        self.view.window.rootViewController = first;
+//        [self dismissViewControllerAnimated:YES completion:nil];
+//        [self performSegueWithIdentifier:@"seg_fnshrnd" sender:self];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         NSLog(@"Scorecard Sign Failure");
-        
+        // check if there's a way to go back to the beginning of the scoring process, also introduce some validation before getting to this point
     }];
     
 }
+
+
 @end

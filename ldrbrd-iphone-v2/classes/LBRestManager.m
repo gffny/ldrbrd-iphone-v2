@@ -16,10 +16,5 @@
     
 }
 
-+(void) recordHole: (int) holeNumber withScore: (int) score
-{
-    // TODO: handle the record score
-    NSLog([NSString stringWithFormat:@"Persisting to the central web. Hole Number: %i | Score: %i", holeNumber, score]);
-}
 
 @end

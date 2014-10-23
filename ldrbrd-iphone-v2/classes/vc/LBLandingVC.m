@@ -33,10 +33,10 @@ LBRestFacade *restFacade;
 
 - (void)loginAction:(UIButton *)sender
 {
-    NSLog(@"login action: really should check credentials");
-    NSLog(username.text);
+    NSLog(@"%@", username.text);
     [restFacade asynchAuthenticateWithUsername:username.text andPassword:password.text withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+
+        [[NSUserDefaults standardUserDefaults] setObject:username.text forKey:@"username"];
         NSLog(@"Auth Success");
         // move to new screen
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -53,6 +53,7 @@ LBRestFacade *restFacade;
 - (void)viewDidLoad
 {
     restFacade = [[LBRestFacade alloc] init];
+    [self.username setText: [[NSUserDefaults standardUserDefaults] objectForKey:@"username"]];
     // Do any additional setup after loading the view.
     [restFacade asynchBackendOnlineCheckWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [warningLabel setText: @"Backend Online"];
@@ -67,6 +68,7 @@ LBRestFacade *restFacade;
         [super viewDidLoad];
         
     }];
+    
     [self.loginButton addTarget:self action:@selector(loginAction:) forControlEvents:UIControlEventTouchUpInside];
 }
 

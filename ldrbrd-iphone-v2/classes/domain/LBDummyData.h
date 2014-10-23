@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LBCourseDto.h"
+#import "LBCourse.h"
 
 @interface LBDummyData : NSObject
 
-+ (LBCourseDto *) dummyCourse;
++ (LBCourse *) dummyCourse;
 
 @end

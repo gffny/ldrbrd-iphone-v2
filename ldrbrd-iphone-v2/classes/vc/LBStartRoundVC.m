@@ -18,7 +18,7 @@
 
 @end
 
-NSMutableArray *courseList;
+
 
 @implementation LBStartRoundVC
 
@@ -30,6 +30,7 @@ NSMutableArray *courseList;
 @synthesize descriptionValue;
 @synthesize handicapField;
 @synthesize previousScrollViewYOffset;
+@synthesize courseList;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,6 +50,12 @@ NSMutableArray *courseList;
     [scroller setDelegate:self];
     [handicapField setDelegate:self];
     
+    courseList = [[LBDataManager sharedInstance] favouriteCourseList];
+    if(courseList.count > 0) {
+        [coursePicker reloadAllComponents];
+        [self updateCourseInfo: (LBCourse *)[courseList objectAtIndex:0]];
+    } else {
+    /* FOR NOW use the favourite list retrieved in the profile digest
     [[[LBScoreService alloc] init] asynchRetrieveCourseList:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Retrieve Success %@", operation.responseString);
         if([responseObject isKindOfClass:[NSArray class]]) {
@@ -65,6 +72,8 @@ NSMutableArray *courseList;
         NSLog(@"Retrieve Failure");
         // todo eh aaah
     }];
+     */
+    }
     [self setPreviousScrollViewYOffset: 1.0f];
     CGRect frameRect = handicapField.frame;
     frameRect.size.height = 50;
@@ -105,29 +114,46 @@ NSMutableArray *courseList;
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    NSLog([NSString stringWithFormat:@"Row Number %ld", row]);
+    NSLog(@"%@",[NSString stringWithFormat:@"Row Number %ld", row]);
     if(courseList != NULL) {
         [self updateCourseInfo: [courseList objectAtIndex: row]];
     }
 }
 
--(void) updateCourseInfo: (NSDictionary *)course
+-(void) updateCourseInfo: (LBCourse *)course
 {
     if(course != NULL) {
-        [courseName setText: [self stringValueForCourse:course AndKey:@"name"]];
-        [parValue setText: [self stringValueForCourse:course AndKey:@"par"]];
-        [teeColourValue setText: [self stringValueForCourse:course AndKey:@"teeColour"]];
-        [indexValue setText: [self stringValueForCourse:course AndKey:@"slopeIndex"]];
-        [descriptionValue setText: @"name"];
+        [[LBDataManager sharedInstance] initialiseCourse: course];
+        [courseName setText: [course courseName]];
+        [parValue setText: [course par]];
+        [teeColourValue setText: [course teeColour]];
+        [indexValue setText: [course slopeIndex]];
+        [descriptionValue setText: [course description]];
     }
 }
 
--(NSString *)stringValueForCourse: (NSDictionary *)course AndKey: (NSString *)key
-{
-    return [NSString stringWithFormat:@"%@", [course valueForKey: key]];
-}
 
 #pragma mark - Navigation
+
+
+- (void)playNowBtnClckd:(UIButton *)sender
+{
+    NSLog(@"play now button clicked");
+    
+    #warning need to get the course corresponding to picker list index
+    [[[LBRestFacade alloc] init] asynchStartScorecardOnCourse: [[[LBDataManager sharedInstance] course] idString] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if([responseObject isKindOfClass:[NSDictionary class]]) {
+            LBScorecard *scorecard = [[LBScorecard alloc] initWithDictionary: (NSDictionary*) responseObject error: nil];
+            NSLog(@"Start Scorecard Success %@", scorecard.idString);
+            
+            //TODO get the response object for scorecard and initialise the LBScorecard
+            [[LBDataManager sharedInstance] setScorecard: scorecard];
+            [self performSegueWithIdentifier:@"seg_plyrnd" sender:self];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Start Scorecard Failure");
+    }];
+}
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -137,27 +163,10 @@ NSMutableArray *courseList;
     if([destVc isKindOfClass: [LBPlayGolfVC class]])
     {
         LBPlayGolfVC *playGolfVC = (LBPlayGolfVC *)destVc;
-        [playGolfVC loadCourseInView: [[LBCourseDto alloc] initWithCourseDetails: [courseList objectAtIndex: [coursePicker selectedRowInComponent:0]]]];
+        [playGolfVC loadCourseInView: [[LBDataManager sharedInstance] course]];
+        
     }
     // Pass the selected object to the new view controller.
-}
-
-- (void)playNowBtnClckd:(UIButton *)sender
-{
-    NSLog(@"play now button clicked");
-    NSString *courseId = [[[LBCourseDto alloc] initWithCourseDetails: [courseList objectAtIndex: [coursePicker selectedRowInComponent:0]]] courseId];
-    [[[LBRestFacade alloc] init] asynchStartScorecardOnCourse: courseId withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if([responseObject isKindOfClass:[NSDictionary class]]) {
-            NSString *scorecardId = [responseObject valueForKey: @"idString"];
-            NSLog(@"Start Scorecard Success %@", scorecardId);
-            
-            //TODO get the response object for scorecard and initialise the LBScorecard
-            [[LBDataManager sharedInstance] initialiseScorecard: scorecardId];
-            [self performSegueWithIdentifier:@"seg_plyrnd" sender:self];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Start Scorecard Failure");
-    }];
 }
 
 // Methods for UIScrollViewDelegate that enable the auto hide of the nav bar upon scrolling

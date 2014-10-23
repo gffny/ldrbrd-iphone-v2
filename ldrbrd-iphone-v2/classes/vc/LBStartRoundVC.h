@@ -23,6 +23,6 @@
 @property (strong, nonatomic) IBOutlet UITextField *handicapField;
 @property (strong, nonatomic) IBOutlet UIButton *playGolfBtn;
 @property (nonatomic) CGFloat previousScrollViewYOffset;
-
+@property (strong, nonatomic) NSArray *courseList;
 
 @end

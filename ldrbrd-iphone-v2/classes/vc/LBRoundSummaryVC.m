@@ -46,14 +46,14 @@ LBRestFacade *restFacade;
 
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self loadViewWithScoreArray: [[LBDataManager sharedInstance] currentScoreArray] andCourse: [[LBDataManager sharedInstance] courseInPlay]];
+    [self loadViewWithScoreArray: [[LBDataManager sharedInstance] currentScoreArray] andCourse: [[LBDataManager sharedInstance] course]];
     [self.submitScorecardBtn addTarget:self action:@selector(sbmtScrcrdBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)sbmtScrcrdBtnClckd:(UIButton *)sender {
 
     NSLog(@"submit scorecard button clicked");
-    [restFacade asynchSubmitScorecard: [[LBDataManager sharedInstance] currentScoreArray] andScorecardId:[[LBDataManager sharedInstance] getScorecardId] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [restFacade asynchSubmitScorecard: [[LBDataManager sharedInstance] currentScoreArray] andScorecardId:[[[LBDataManager sharedInstance] scorecard] idString] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSLog(@"Scorecard Submit Success");
         // move to new screen
@@ -69,11 +69,11 @@ LBRestFacade *restFacade;
 
 }
 
-- (void) loadViewWithScoreArray: (NSArray*) scoreArray andCourse: (LBCourseDto*) course {
+- (void) loadViewWithScoreArray: (NSArray*) scoreArray andCourse: (LBCourse*) course {
 
-    int coursePar = course.par;
+    int coursePar = (int)[course.par integerValue];
     int score = [LBScorecardUtils countScore: scoreArray];
-    self.par.text = [NSString stringWithFormat:@"%i", coursePar];
+    self.par.text = course.par;
     self.score.text = [NSString stringWithFormat:@"%i", score];
     if(score - coursePar > 0) {
         self.toParValue.text = [NSString stringWithFormat:@"+%i", (score-coursePar)];
@@ -132,14 +132,12 @@ LBRestFacade *restFacade;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    #warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    #warning Incomplete method implementation.
     // Return the number of rows in the section.
     return self.holeScoreArray.count;
 }
@@ -153,12 +151,12 @@ LBRestFacade *restFacade;
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"LBRoundSummaryHoleCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-    NSLog([NSString stringWithFormat:@" index path row %ld", [[NSNumber numberWithInteger: indexPath.row] longValue]]);
-    LBCourseDto *course = [self.dataManager.courseInPlay courseHoleWithNumber:indexPath.row];
+    NSLog(@"%@", [NSString stringWithFormat:@" index path row %ld", [[NSNumber numberWithInteger: indexPath.row] longValue]]);
+    LBCourseHole *courseHole = [self.dataManager.course holeWithNumber: ((int)indexPath.row)+1];
     cell.holeLabel.text = [NSString stringWithFormat:@"%li", (indexPath.row+1)];
-    cell.scoreLabel.text = [NSString stringWithFormat:@"%i", [[self.holeScoreArray objectAtIndex:indexPath.row] integerValue]];
-    cell.parLabel.text = [NSString stringWithFormat:@"%i", course.par];
-    cell.indexLabel.text = [NSString stringWithFormat:@"%i", course.index];
+    cell.scoreLabel.text = [NSString stringWithFormat:@"%li", (long)[[self.holeScoreArray objectAtIndex:indexPath.row] integerValue]];
+    cell.parLabel.text = [NSString stringWithFormat:@"%@", courseHole.par];
+    cell.indexLabel.text = [NSString stringWithFormat:@"%@", courseHole.index];
 
     return cell;
 }

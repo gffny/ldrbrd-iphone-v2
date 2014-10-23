@@ -8,6 +8,7 @@
 
 #import "lbMainVC.h"
 #import "LBUpcomingRoundsTableVC.h"
+#import "LBPlayGolfVC.h"
 #import "LBJsonData.h"
 
 @interface lbMainVC ()
@@ -37,7 +38,12 @@
     [self.revealButtonItem setAction: @selector( revealToggle: )];
     [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
     
-    [self.playNowBtn addTarget:self action:@selector(playNowBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
+    if([[LBDataManager sharedInstance] scorecard] != nil) {
+        [self.playNowBtn addTarget:self action:@selector(continueRoundBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
+        [self.playNowBtn setTitle:@"Continue Round" forState:UIControlStateNormal];
+    } else {
+        [self.playNowBtn addTarget:self action:@selector(playNowBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
+    }
     [self.scheduleRoundBtn addTarget:self action:@selector(scheduleRoundBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
 
 }
@@ -47,6 +53,13 @@
     NSLog(@"play now button clicked");
     [self performSegueWithIdentifier:@"seg_plynw" sender:self];
 }
+
+- (void)continueRoundBtnClckd:(UIButton *)sender
+{
+    NSLog(@"continue round button clicked");
+    [self performSegueWithIdentifier:@"seg_ctnRnd" sender:self];
+}
+
 
 - (void)scheduleRoundBtnClckd:(UIButton *)sender
 {
@@ -72,11 +85,11 @@
         LBUpcomingRoundsTableVC *urtvc = (LBUpcomingRoundsTableVC *)segue.destinationViewController;
         urtvc.parentVC = self;
     }
-    if ([segue.identifier isEqualToString:@"seg_plyrnd"]) {
-        NSDictionary *course = [LBJsonData courseJson];
-
-        UIViewController *destViewController = segue.destinationViewController;
-        //destViewController.course = course;
+    else if ([segue.identifier isEqualToString:@"seg_ctnRnd"])
+    {
+        LBPlayGolfVC *playGolfVC = (LBPlayGolfVC *)segue.destinationViewController;
+        [playGolfVC loadCourseInView: [[[LBDataManager sharedInstance] scorecard] course]];
+        [playGolfVC setScoreArray: [[LBDataManager sharedInstance] currentScoreArray]];
     }
 }
 

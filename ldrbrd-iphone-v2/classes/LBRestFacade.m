@@ -9,6 +9,9 @@
 #import "LBRestFacade.h"
 #import "LBDataManager.h"
 #import "LBConstant.h"
+#import "LBGolfer.h"
+#import "LBCourse.h"
+#import "LBScorecard.h"
 
 @implementation LBRestFacade
 
@@ -49,41 +52,35 @@ failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
         [manager setRequestSerializer: requestSerializer];
 
         [manager POST:[NSString stringWithFormat:@"%@profile/digest", restBaseURL] parameters:Nil success: ^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            NSDictionary *golferDigest = (NSDictionary*)responseObject;
-            
-            NSDictionary *golfer = [golferDigest dictionaryForKey:@"golfer"];
-            NSArray *favouriteCourseList;
-            NSArray *lastXScorecardList;
-            NSArray *upcomingCompetitionEntryList;
-            NSArray *upcomingNonCompetitionRoundList;
-            NSObject *hasActiveScorecard = [golferDigest objectForKey:@"hasActiveScorecard"];
-            
-            // initialise the following objects
-//            favouriteCourseList = ();
-//            golfer = {
-//                    emailAddress = "gaffney.ie@gmail.com";
-//                    enabled = 1;
-//                    failedLoginAttemptsCount = 0;
-//                    favouriteCourseList = "<null>";
-//                    firstName = John;
-//                    handDominanceValue = RIGHT;
-//                    handedness = RIGHT;
-//                    handicap = 26;
-//                    id = 1;
-//                    idString = 1;
-//                    lastLogin = "<null>";
-//                    lastLoginDT = "<null>";
-//                    lastName = Gaffney;
-//                    password = "<null>";
-//                    profileHandle = gffny;
-//                    profileImageRef = "<null>";
-//            };
-//            lastXScorecardList = ( );
-//            upcomingCompetitionEntryList = ( );
-//            upcomingNonCompetitionRoundList = ( );
 
-            [[LBDataManager sharedInstance] initialiseScorecard: nil];
+            //parse the json golfer profile digest response (profile, upcoming rounds (comp and non comp), existing scorecard, etc)
+            NSDictionary *golferDigest = (NSDictionary*)responseObject;
+
+            // parse golfer profile
+            LBGolfer* golferProfile = [[LBGolfer alloc] initWithDictionary:(NSDictionary *)[golferDigest objectForKey:@"golfer"] error:nil];
+            [[LBDataManager sharedInstance] setGolferProfile:golferProfile];
+
+            // parse golfer favourite course list
+
+            NSArray<LBCourse>* favouriteCourseList = [LBCourse arrayOfModelsFromDictionaries:(NSArray*)[golferDigest objectForKey:@"favouriteCourseList"]];
+            [[LBDataManager sharedInstance] setFavouriteCourseList:favouriteCourseList];
+
+            // parse last x scorecards list
+            NSArray<LBScorecard> *lastXScorecardList = [[NSArray alloc] initWithArray: (NSArray<LBScorecard>*)[golferDigest objectForKey:@"lastXScorecardList"]];
+            [[LBDataManager sharedInstance] setLastXScorecardList: lastXScorecardList];
+
+            // parse upcoming competitions list
+            NSArray *upcomingCompetitionEntryList = [[NSArray alloc] initWithArray: (NSArray*)[golferDigest objectForKey:@"upcomingCompetitionEntryList"]];
+            [[LBDataManager sharedInstance] setUpcomingCompetitionEntryList: upcomingCompetitionEntryList];
+            
+            // parse upcoming non-competition-round list
+            NSArray *upcomingNonCompetitionRoundList = [[NSArray alloc] initWithArray: (NSArray*)[golferDigest objectForKey:@"upcomingNonCompetitionRoundList"]];
+            [[LBDataManager sharedInstance] setUpcomingNonCompetitionRoundList: upcomingNonCompetitionRoundList];
+
+            // check if there's an active scorecard
+            LBScorecard *activeScorecard = [[LBScorecard alloc] initWithDictionary:[golferDigest objectForKey:@"activeScorecard"] error:nil];
+            [[LBDataManager sharedInstance] setScorecard: activeScorecard];
+           
             successMethod(operation, responseObject);
         }
         failure:failure];
@@ -103,6 +100,15 @@ failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
     [manager setRequestSerializer: requestSerializer];
     
     [manager POST:[NSString stringWithFormat:@"%@start?courseId=%@", restScorecardURL, courseId] parameters:Nil success:success failure:failure];
+}
+
++(void) asynchScoreHoleWithHoleNumber: (int) holeNumber WithHoleScore: (int) holeScore WithScorecardId: (NSString *) scorecardId
+{
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"continualScoring"]) {
+        NSLog(@"Scoring hole %i for scorecard %@ with score %i", holeNumber, scorecardId, holeScore);
+    } else {
+        NSLog(@"continual scoring is turned off");
+    }
 }
 
 -(void) asynchSubmitScorecard:(NSArray *) scorecard andScorecardId:(NSString *) scorecardId withSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
