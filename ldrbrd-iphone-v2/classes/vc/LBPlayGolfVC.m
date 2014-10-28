@@ -27,11 +27,8 @@
 // HANDY
 @property (nonatomic, strong) LBLocationManager *locationManager;
 @property (nonatomic, strong) NSMutableArray *flightPathArray;
-//@property (nonatomic, strong) LBCourse *course;
 @property (nonatomic) int holeScore;
 @property (nonatomic) int holePointer;
-
-//@property (nonatomic, strong) NSMutableArray *holeScoreArray;
 
 // UI LABELS
 @property (strong, nonatomic) IBOutlet UILabel *parLabel;
@@ -120,7 +117,6 @@
         NSLog(@"storing the score %i for hole %i", self.holeScore, [self actualHoleNumber]);
         // set score in local memory
         [[LBDataManager sharedInstance] setScore: [NSNumber numberWithInt:self.holeScore] forHole: [NSNumber numberWithInt: self.holePointer]];
-        #warning fix method call
         // score hole to backend
         [LBRestFacade asynchScoreHoleWithHoleNumber: [self actualHoleNumber] WithHoleScore: self.holeScore WithScorecardId: [[[LBDataManager sharedInstance] scorecard] idString]];
         if(self.holePointer < ([[[[LBDataManager sharedInstance] course] holeMap] count]-1))

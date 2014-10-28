@@ -20,8 +20,6 @@
 @synthesize warningLabel;
 @synthesize loginButton;
 
-LBRestFacade *restFacade;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -52,7 +50,6 @@ LBRestFacade *restFacade;
 
 - (void)viewDidLoad
 {
-    restFacade = [[LBRestFacade alloc] init];
     [self.username setText: [[NSUserDefaults standardUserDefaults] objectForKey:@"username"]];
     // Do any additional setup after loading the view.
     [LBRestFacade asynchBackendOnlineCheckWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {

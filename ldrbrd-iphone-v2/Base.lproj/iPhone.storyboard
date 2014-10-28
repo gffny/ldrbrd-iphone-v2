@@ -343,10 +343,10 @@
             </objects>
             <point key="canvasLocation" x="-1196" y="943"/>
         </scene>
-        <!--Lb MainVC-->
+        <!--MainVC-->
         <scene sceneID="mWa-8H-uxJ">
             <objects>
-                <viewController id="r6F-x3-th8" customClass="lbMainVC" sceneMemberID="viewController">
+                <viewController id="r6F-x3-th8" customClass="LBMainVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Tju-IT-y59">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -369,14 +369,6 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <containerView contentMode="top" id="CgV-ci-L0e">
-                                        <rect key="frame" x="0.0" y="103" width="320" height="161"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <segue destination="yDC-zA-fOM" kind="embed" identifier="seg_embdUpcmngRnds" id="uyc-wT-S56"/>
-                                        </connections>
-                                    </containerView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming Rounds" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="l2d-LH-F2Y">
                                         <rect key="frame" x="156" y="74" width="144" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -390,9 +382,268 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="j9I-jR-hbK">
-                                        <rect key="frame" x="20" y="371" width="280" height="184"/>
+                                        <rect key="frame" x="0.0" y="363" width="320" height="205"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewsItem1" textLabel="wxp-0C-nJs" detailTextLabel="Cnd-sI-gW0" style="IBUITableViewCellStyleSubtitle" id="McX-49-yuk">
+                                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="McX-49-yuk" id="eo5-NG-2pL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="News Item 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wxp-0C-nJs">
+                                                            <rect key="frame" x="15" y="3" width="101" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Something happened in news item 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Cnd-sI-gW0">
+                                                            <rect key="frame" x="15" y="25" width="204" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewsItem2" textLabel="ilx-5b-5z6" detailTextLabel="zYq-BY-1CU" style="IBUITableViewCellStyleSubtitle" id="LR4-VH-NYg">
+                                                <rect key="frame" x="0.0" y="66" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LR4-VH-NYg" id="rAZ-Z7-NRe">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="News Item 2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ilx-5b-5z6">
+                                                            <rect key="frame" x="15" y="3" width="101" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Something happened in news item 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zYq-BY-1CU">
+                                                            <rect key="frame" x="15" y="25" width="204" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewsItem3" textLabel="cf3-4V-Zka" detailTextLabel="hf8-Xw-4bQ" style="IBUITableViewCellStyleSubtitle" id="1u5-uA-1jc">
+                                                <rect key="frame" x="0.0" y="110" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1u5-uA-1jc" id="2w0-U2-4Y3">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="News Item 3" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cf3-4V-Zka">
+                                                            <rect key="frame" x="15" y="3" width="101" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Something happened in news item 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hf8-Xw-4bQ">
+                                                            <rect key="frame" x="15" y="25" width="204" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewsItem4" textLabel="Tgo-0U-kVq" detailTextLabel="zIZ-nD-OP9" style="IBUITableViewCellStyleSubtitle" id="kA5-gO-rKu">
+                                                <rect key="frame" x="0.0" y="154" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kA5-gO-rKu" id="pz2-yA-hwb">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="News Item 4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tgo-0U-kVq">
+                                                            <rect key="frame" x="15" y="3" width="101" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Something happened in news item 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zIZ-nD-OP9">
+                                                            <rect key="frame" x="15" y="25" width="204" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewsItem5" textLabel="dXZ-0l-Kaf" detailTextLabel="ljX-04-4KE" style="IBUITableViewCellStyleSubtitle" id="r2u-CV-VeM">
+                                                <rect key="frame" x="0.0" y="198" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="r2u-CV-VeM" id="TuI-lm-l4p">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="News Item 5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dXZ-0l-Kaf">
+                                                            <rect key="frame" x="15" y="3" width="101" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Something happened in news item 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ljX-04-4KE">
+                                                            <rect key="frame" x="15" y="25" width="204" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <sections/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="r6F-x3-th8" id="0FW-9o-RiF"/>
+                                            <outlet property="delegate" destination="r6F-x3-th8" id="p2m-jc-zOX"/>
+                                        </connections>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="r4e-23-eXv">
+                                        <rect key="frame" x="0.0" y="103" width="320" height="161"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UpcomingRound1" textLabel="q6o-GC-meH" detailTextLabel="IYF-If-wEh" style="IBUITableViewCellStyleSubtitle" id="58f-Qh-Q8D">
+                                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="58f-Qh-Q8D" id="Sui-HN-mag">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="President's Day Round One" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="q6o-GC-meH">
+                                                            <rect key="frame" x="15" y="3" width="224" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Competition | February 14th 11:10 am" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IYF-If-wEh">
+                                                            <rect key="frame" x="15" y="25" width="211" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UpcomingRound2" textLabel="CfO-pi-hc4" detailTextLabel="1DH-LS-2L7" style="IBUITableViewCellStyleSubtitle" id="2JE-if-7b9">
+                                                <rect key="frame" x="0.0" y="66" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2JE-if-7b9" id="4VM-eX-v12">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="President's Day Round Two" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CfO-pi-hc4">
+                                                            <rect key="frame" x="15" y="3" width="223" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Competition | February 15th 10:05 am" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1DH-LS-2L7">
+                                                            <rect key="frame" x="15" y="25" width="211" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UpcomingRound3" textLabel="5Tv-MT-w5f" detailTextLabel="pzR-zW-fVB" style="IBUITableViewCellStyleSubtitle" id="wWq-Sl-RKO">
+                                                <rect key="frame" x="0.0" y="110" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wWq-Sl-RKO" id="a8W-Ww-vWd">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="President's Day Round Three" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Tv-MT-w5f">
+                                                            <rect key="frame" x="15" y="3" width="236" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Competition | February 14th 12:30 pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pzR-zW-fVB">
+                                                            <rect key="frame" x="15" y="25" width="212" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UpcomingRound4" textLabel="26q-98-hCd" detailTextLabel="leu-z0-t8l" style="IBUITableViewCellStyleSubtitle" id="BWV-w9-4OW">
+                                                <rect key="frame" x="0.0" y="154" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BWV-w9-4OW" id="6R2-1J-xea">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Midweek Golf Round" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="26q-98-hCd">
+                                                            <rect key="frame" x="15" y="3" width="170" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Non-Competition | April 4th 6:55 am" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="leu-z0-t8l">
+                                                            <rect key="frame" x="15" y="25" width="201" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UpcomingRound5" textLabel="ECZ-hy-sX7" detailTextLabel="h4L-si-bcI" style="IBUITableViewCellStyleSubtitle" id="I3b-Zi-Oyf">
+                                                <rect key="frame" x="0.0" y="198" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I3b-Zi-Oyf" id="TtW-Ao-Jw1">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Midweek Golf Round" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ECZ-hy-sX7">
+                                                            <rect key="frame" x="15" y="3" width="170" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Non-Competition | April 11th 6:55 am" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h4L-si-bcI">
+                                                            <rect key="frame" x="15" y="25" width="208" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <sections/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="r6F-x3-th8" id="GgO-Zz-7lf"/>
+                                            <outlet property="delegate" destination="r6F-x3-th8" id="ElU-tp-PuY"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -405,9 +656,11 @@
                         <barButtonItem key="leftBarButtonItem" image="menu.png" id="Afv-cq-5FN"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="newsTable" destination="j9I-jR-hbK" id="6oa-fN-8v0"/>
                         <outlet property="playNowBtn" destination="qe2-Fk-lbP" id="94B-io-UDT"/>
                         <outlet property="revealButtonItem" destination="Afv-cq-5FN" id="EsQ-7g-aIL"/>
                         <outlet property="scheduleRoundBtn" destination="anT-fb-uq9" id="4Yp-nV-tGS"/>
+                        <outlet property="upcomingRoundTable" destination="r4e-23-eXv" id="Svd-KI-69T"/>
                         <segue destination="Ay0-El-eUH" kind="push" identifier="seg_plyrnd" id="Ong-RQ-PRK"/>
                         <segue destination="SbQ-xu-kaJ" kind="push" identifier="seg_schdlrnd" id="GtS-C5-Jmp"/>
                         <segue destination="LWk-6X-Xjh" kind="push" identifier="seg_plynw" id="8Tm-9R-mEi"/>
@@ -918,7 +1171,6 @@
                     <navigationItem key="navigationItem" id="r87-mZ-PnN"/>
                     <connections>
                         <outlet property="sgnScrcrdBtn" destination="H9L-G4-1BV" id="Fwf-SH-EHU"/>
-                        <segue destination="kYK-tC-O59" kind="modal" identifier="seg_fnshrnd" id="DfV-mu-qYL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="COR-1m-AaU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1035,149 +1287,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pCn-2Y-CiZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1456" y="2092"/>
-        </scene>
-        <!--Upcoming Rounds TableVC - upcomingRounds-->
-        <scene sceneID="uQv-t8-Ivx">
-            <objects>
-                <tableViewController title="upcomingRounds" id="yDC-zA-fOM" customClass="LBUpcomingRoundsTableVC" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="pGr-nK-Ask">
-                        <rect key="frame" x="0.0" y="0.0" width="280" height="161"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UpcomingRound1" textLabel="q6o-GC-meH" detailTextLabel="IYF-If-wEh" style="IBUITableViewCellStyleSubtitle" id="58f-Qh-Q8D">
-                                <rect key="frame" x="0.0" y="22" width="280" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="58f-Qh-Q8D" id="Sui-HN-mag">
-                                    <rect key="frame" x="0.0" y="0.0" width="280" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="President's Day Round One" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="q6o-GC-meH">
-                                            <rect key="frame" x="15" y="3" width="224" height="22"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Competition | February 14th 11:10 am" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IYF-If-wEh">
-                                            <rect key="frame" x="15" y="25" width="211" height="15"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UpcomingRound2" textLabel="CfO-pi-hc4" detailTextLabel="1DH-LS-2L7" style="IBUITableViewCellStyleSubtitle" id="2JE-if-7b9">
-                                <rect key="frame" x="0.0" y="66" width="280" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2JE-if-7b9" id="4VM-eX-v12">
-                                    <rect key="frame" x="0.0" y="0.0" width="280" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="President's Day Round Two" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CfO-pi-hc4">
-                                            <rect key="frame" x="15" y="3" width="223" height="22"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Competition | February 15th 10:05 am" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1DH-LS-2L7">
-                                            <rect key="frame" x="15" y="25" width="211" height="15"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UpcomingRound3" textLabel="5Tv-MT-w5f" detailTextLabel="pzR-zW-fVB" style="IBUITableViewCellStyleSubtitle" id="wWq-Sl-RKO">
-                                <rect key="frame" x="0.0" y="110" width="280" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wWq-Sl-RKO" id="a8W-Ww-vWd">
-                                    <rect key="frame" x="0.0" y="0.0" width="280" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="President's Day Round Three" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Tv-MT-w5f">
-                                            <rect key="frame" x="15" y="3" width="236" height="22"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Competition | February 14th 12:30 pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pzR-zW-fVB">
-                                            <rect key="frame" x="15" y="25" width="212" height="15"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UpcomingRound4" textLabel="26q-98-hCd" detailTextLabel="leu-z0-t8l" style="IBUITableViewCellStyleSubtitle" id="BWV-w9-4OW">
-                                <rect key="frame" x="0.0" y="154" width="280" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BWV-w9-4OW" id="6R2-1J-xea">
-                                    <rect key="frame" x="0.0" y="0.0" width="280" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Midweek Golf Round" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="26q-98-hCd">
-                                            <rect key="frame" x="15" y="3" width="170" height="22"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Non-Competition | April 4th 6:55 am" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="leu-z0-t8l">
-                                            <rect key="frame" x="15" y="25" width="201" height="15"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UpcomingRound5" textLabel="ECZ-hy-sX7" detailTextLabel="h4L-si-bcI" style="IBUITableViewCellStyleSubtitle" id="I3b-Zi-Oyf">
-                                <rect key="frame" x="0.0" y="198" width="280" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I3b-Zi-Oyf" id="TtW-Ao-Jw1">
-                                    <rect key="frame" x="0.0" y="0.0" width="280" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Midweek Golf Round" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ECZ-hy-sX7">
-                                            <rect key="frame" x="15" y="3" width="170" height="22"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Non-Competition | April 11th 6:55 am" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h4L-si-bcI">
-                                            <rect key="frame" x="15" y="25" width="208" height="15"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="yDC-zA-fOM" id="JDP-Af-LVb"/>
-                            <outlet property="delegate" destination="yDC-zA-fOM" id="yPc-1H-lJb"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="upcomingRoundTable" destination="pGr-nK-Ask" id="A8v-Q1-MD3"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BSN-5M-wvP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="108" y="2820"/>
         </scene>
         <!--Golfer TableVC-->
         <scene sceneID="6Ni-xu-6hM">
@@ -1317,7 +1426,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="DfV-mu-qYL"/>
         <segue reference="7zF-yp-W4p"/>
         <segue reference="cX0-E4-C13"/>
     </inferredMetricsTieBreakers>

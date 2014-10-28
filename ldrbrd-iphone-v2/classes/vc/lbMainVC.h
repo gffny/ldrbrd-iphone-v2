@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface lbMainVC : UIViewController
+@interface LBMainVC : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
 -(void) playUpcomingRoundWithId: (NSString *) roundId;
 
 @end
+
