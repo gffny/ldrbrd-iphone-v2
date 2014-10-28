@@ -12,7 +12,6 @@
 #import "LBDummyData.h"
 #import "LBRestFacade.h"
 #import "LBPlayGolfVC.h"
-#import "LBScoreService.h"
 
 @interface LBStartRoundVC ()
 
@@ -141,7 +140,7 @@
     NSLog(@"play now button clicked");
     
     #warning need to get the course corresponding to picker list index
-    [[[LBRestFacade alloc] init] asynchStartScorecardOnCourse: [[[LBDataManager sharedInstance] course] idString] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LBRestFacade asynchStartScorecardOnCourse: [[[LBDataManager sharedInstance] course] idString] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if([responseObject isKindOfClass:[NSDictionary class]]) {
             LBScorecard *scorecard = [[LBScorecard alloc] initWithDictionary: (NSDictionary*) responseObject error: nil];
             NSLog(@"Start Scorecard Success %@", scorecard.idString);

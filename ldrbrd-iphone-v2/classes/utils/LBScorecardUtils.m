@@ -10,6 +10,26 @@
 
 @implementation LBScorecardUtils
 
++(BOOL) isScoreArrayComplete: (NSMutableArray *) scoreArray forScorecard: (LBScorecard *) scorecard {
+    // check if the scorecard is valid
+    if(scoreArray != NULL) {
+        // check each hole is not 0
+        for(int i = 0; i<scoreArray.count; i++) {
+            if(((int)[[scoreArray objectAtIndex:i] integerValue]) < 1) {
+                return FALSE;
+            }
+        }
+        // check that the score array and course hole count match
+        if(scorecard != NULL && scorecard.course != NULL && scorecard.course.courseHoleList != NULL) {
+            if(scorecard.course.courseHoleList.count != scoreArray.count) {
+                return FALSE;
+            }
+        }
+        return TRUE;
+    }
+    return FALSE;
+}
+
 +(int) countScore: (NSArray *) scoreArray {
     int countVal = 0;
     for(int i=0; i<scoreArray.count; i++) {
@@ -18,56 +38,79 @@
     return countVal;
 }
 
-
 +(int) countBelowPar: (NSArray*) scoreArray onCourse: (LBCourse *) course {
-//    if(scoreArray.count <= course.courseHoleMap.count) {
-//        int count = 0;
-//        for(int i=0; i<scoreArray.count; i++) {
-//            if([[scoreArray objectAtIndex:i] integerValue] - [course courseHoleWithNumber:i].par < 0) {
-//                count+=1;
-//            }
-//        }
-//        return count;
-//    }
-    return -1;
-}
+    // check the params are not null
+    if(scoreArray != NULL && course != NULL && course.courseHoleList != NULL) {
+        // check that the scorecard score array and the course hole list count match
+        if(scoreArray.count <= course.courseHoleList.count) {
+            // initialise a count and start counting
+            int count = 0;
+            for(int i=0; i<scoreArray.count; i++) {
 
-+(int) countBogeyPlus: (NSArray*) scoreArray onCourse: (LBCourse *) course {
-//    if(scoreArray.count <= course.courseHoleMap.count) {
-//        int count = 0;
-//        for(int i=0; i<scoreArray.count; i++) {
-//            if([[scoreArray objectAtIndex:i] integerValue] - [course courseHoleWithNumber:i].par > 1) {
-//                count+=1;
-//            }
-//        }
-//        return count;
-//    }
-    return -1;
-}
-
-+(int) countBogey: (NSArray*) scoreArray onCourse: (LBCourse *) course {
-//    if(scoreArray.count <= course.courseHoleMap.count) {
-//        int count = 0;
-//        for(int i=0; i<scoreArray.count; i++) {
-//            if([[scoreArray objectAtIndex:i] integerValue] - [course courseHoleWithNumber:i].par == 1) {
-//                count+=1;
-//            }
-//        }
-//        return count;
-//    }
+                if([[scoreArray objectAtIndex:i] integerValue] - [[[course holeWithNumber:i+1] par] integerValue] < 0) {
+                    count+=1;
+                }
+            }
+            return count;
+        }
+    }
     return -1;
 }
 
 +(int) countPar: (NSArray*) scoreArray onCourse: (LBCourse *) course {
-//    if(scoreArray.count <= course.courseHoleMap.count) {
-//        int count = 0;
-//        for(int i=0; i<scoreArray.count; i++) {
-//            if([[scoreArray objectAtIndex:i] integerValue] - [course courseHoleWithNumber:i].par == 0) {
-//                count+=1;
-//            }
-//        }
-//        return count;
-//    }
+    // check the params are not null
+    if(scoreArray != NULL && course != NULL && course.courseHoleList != NULL) {
+        // check that the scorecard score array and the course hole list count match
+        if(scoreArray.count <= course.courseHoleList.count) {
+            // initialise a count and start counting
+            int count = 0;
+            for(int i=0; i<scoreArray.count; i++) {
+                
+                if([[scoreArray objectAtIndex:i] integerValue] - [[[course holeWithNumber:i+1] par] integerValue] == 0) {
+                    count+=1;
+                }
+            }
+            return count;
+        }
+    }
+    return -1;
+}
+
++(int) countBogey: (NSArray*) scoreArray onCourse: (LBCourse *) course {
+    // check the params are not null
+    if(scoreArray != NULL && course != NULL && course.courseHoleList != NULL) {
+        // check that the scorecard score array and the course hole list count match
+        if(scoreArray.count <= course.courseHoleList.count) {
+            // initialise a count and start counting
+            int count = 0;
+            for(int i=0; i<scoreArray.count; i++) {
+                
+                if([[scoreArray objectAtIndex:i] integerValue] - [[[course holeWithNumber:i+1] par] integerValue] == 1) {
+                    count+=1;
+                }
+            }
+            return count;
+        }
+    }
+    return -1;
+}
+
++(int) countBogeyPlus: (NSArray*) scoreArray onCourse: (LBCourse *) course {
+    // check the params are not null
+    if(scoreArray != NULL && course != NULL && course.courseHoleList != NULL) {
+        // check that the scorecard score array and the course hole list count match
+        if(scoreArray.count <= course.courseHoleList.count) {
+            // initialise a count and start counting
+            int count = 0;
+            for(int i=0; i<scoreArray.count; i++) {
+                
+                if([[scoreArray objectAtIndex:i] integerValue] - [[[course holeWithNumber:i+1] par] integerValue] > 1) {
+                    count+=1;
+                }
+            }
+            return count;
+        }
+    }
     return -1;
 }
 

@@ -89,7 +89,6 @@
     {
         LBPlayGolfVC *playGolfVC = (LBPlayGolfVC *)segue.destinationViewController;
         [playGolfVC loadCourseInView: [[[LBDataManager sharedInstance] scorecard] course]];
-        [playGolfVC setScoreArray: [[LBDataManager sharedInstance] currentScoreArray]];
     }
 }
 

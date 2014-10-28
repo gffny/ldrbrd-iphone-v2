@@ -9,7 +9,6 @@
 #import "LBPlayGolfNowVC.h"
 #import "LBRestFacade.h"
 #import "LBPlayGolfVC.h"
-#import "LBScoreService.h"
 
 @interface LBPlayGolfNowVC ()
 
@@ -41,7 +40,8 @@ NSMutableArray *courseList;
 {
     [super viewDidLoad];
 
-    [[[LBScoreService alloc] init] asynchRetrieveCourseList:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LBRestFacade asynchRetrieveCourseListWithSuccess: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        
         NSLog(@"Retrieve Success %@", operation.responseString);
         if([responseObject isKindOfClass:[NSArray class]]) {
             // list of courses
@@ -53,11 +53,11 @@ NSMutableArray *courseList;
             // single course
             // todo update the course data in the view and disable the dropdown
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } AndFailure: ^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Retrieve Failure");
         // todo eh aaah
     }];
-    
+
     [self.playGolfBtn addTarget:self action:@selector(playNowBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -135,7 +135,7 @@ NSMutableArray *courseList;
 {
     NSLog(@"play now button clicked");
     NSString *courseId = [[[LBCourse alloc] init] idString]; //initWithCourseDetails: [courseList objectAtIndex: [coursePicker selectedRowInComponent:0]]] courseId];
-    [[[LBRestFacade alloc] init] asynchStartScorecardOnCourse: courseId withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LBRestFacade asynchStartScorecardOnCourse: courseId withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if([responseObject isKindOfClass:[NSDictionary class]]) {
             LBScorecard *scorecard = [[LBScorecard alloc] initWithDictionary:(NSDictionary*) responseObject error: nil];
             NSLog(@"Start Scorecard Success %@", [scorecard idString]);

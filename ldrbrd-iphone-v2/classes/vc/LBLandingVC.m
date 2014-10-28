@@ -34,7 +34,7 @@ LBRestFacade *restFacade;
 - (void)loginAction:(UIButton *)sender
 {
     NSLog(@"%@", username.text);
-    [restFacade asynchAuthenticateWithUsername:username.text andPassword:password.text withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LBRestFacade asynchAuthenticateWithUsername:username.text andPassword:password.text withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         [[NSUserDefaults standardUserDefaults] setObject:username.text forKey:@"username"];
         NSLog(@"Auth Success");
@@ -55,7 +55,7 @@ LBRestFacade *restFacade;
     restFacade = [[LBRestFacade alloc] init];
     [self.username setText: [[NSUserDefaults standardUserDefaults] objectForKey:@"username"]];
     // Do any additional setup after loading the view.
-    [restFacade asynchBackendOnlineCheckWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LBRestFacade asynchBackendOnlineCheckWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [warningLabel setText: @"Backend Online"];
         [super viewDidLoad];
         

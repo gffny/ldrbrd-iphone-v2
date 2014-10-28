@@ -9,7 +9,6 @@
 #import "LBRoundSummaryVC.h"
 #import "LBScorecardUtils.h"
 #import "LBDataManager.h"
-#import "LBRestManager.h"
 #import "LBRestFacade.h"
 
 @interface LBRoundSummaryVC ()
@@ -53,7 +52,7 @@ LBRestFacade *restFacade;
 - (void)sbmtScrcrdBtnClckd:(UIButton *)sender {
 
     NSLog(@"submit scorecard button clicked");
-    [restFacade asynchSubmitScorecard: [[LBDataManager sharedInstance] currentScoreArray] andScorecardId:[[[LBDataManager sharedInstance] scorecard] idString] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LBRestFacade asynchSubmitScorecard: [[LBDataManager sharedInstance] currentScoreArray] andScorecardId:[[[LBDataManager sharedInstance] scorecard] idString] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSLog(@"Scorecard Submit Success");
         // move to new screen

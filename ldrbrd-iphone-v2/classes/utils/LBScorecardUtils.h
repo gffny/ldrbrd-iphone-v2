@@ -11,6 +11,8 @@
 
 @interface LBScorecardUtils : NSObject
 
++(BOOL) isScoreArrayComplete: (NSMutableArray *) scoreArray forScorecard: (LBScorecard *) scorecard;
+
 +(int) countScore: (NSArray*) scoreArray;
 
 +(int) countBelowPar: (NSArray*) scoreArray onCourse: (LBCourse *) course;

@@ -15,7 +15,7 @@
 
 @implementation LBRestFacade
 
--(void) asynchBackendOnlineCheckWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
++(void) asynchBackendOnlineCheckWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     //Check if the backend is online
@@ -31,7 +31,7 @@ failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
     [manager GET:[NSString stringWithFormat:@"%@health", restBaseURL] parameters:Nil success: success failure: failure];
 }
 
--(void) asynchAuthenticateWithUsername:(NSString *) username andPassword:(NSString *) password withSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))successMethod failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
++(void) asynchAuthenticateWithUsername:(NSString *) username andPassword:(NSString *) password withSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))successMethod failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
     //TODO Make the following four lines into a method
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -89,7 +89,7 @@ failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 
 }
 
--(void) asynchStartScorecardOnCourse: (NSString *) courseId withSuccess: (void (^) (AFHTTPRequestOperation *operation, id responseObject))success failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
++(void) asynchStartScorecardOnCourse: (NSString *) courseId withSuccess: (void (^) (AFHTTPRequestOperation *operation, id responseObject))success failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
     //TODO Make the following four lines into a method
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -104,14 +104,33 @@ failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 
 +(void) asynchScoreHoleWithHoleNumber: (int) holeNumber WithHoleScore: (int) holeScore WithScorecardId: (NSString *) scorecardId
 {
-    if([[NSUserDefaults standardUserDefaults] objectForKey:@"continualScoring"]) {
+    if([[[NSUserDefaults standardUserDefaults] objectForKey:@"continualScoring"] boolValue]) {
+        // if continual scoring is turned on
         NSLog(@"Scoring hole %i for scorecard %@ with score %i", holeNumber, scorecardId, holeScore);
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        AFHTTPRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
+        [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [manager setRequestSerializer: requestSerializer];
+        
+        [manager POST:[NSString stringWithFormat:@"%@scoreHole?scorecardId=%@&holeNumber=%i&holeScore=%i", restScorecardURL, scorecardId, holeNumber, holeScore] parameters:Nil success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSLog(@"score hole success");
+
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            NSLog(@"score hole failure");
+            
+        }];
+
     } else {
         NSLog(@"continual scoring is turned off");
     }
 }
 
--(void) asynchSubmitScorecard:(NSArray *) scorecard andScorecardId:(NSString *) scorecardId withSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
++(void) asynchSubmitScorecard:(NSArray *) scorecard andScorecardId:(NSString *) scorecardId withSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure
 {
     //TODO Make the following four lines into a method
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -133,7 +152,7 @@ failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
     [manager POST:[NSString stringWithFormat: @"%@submit", restScorecardURL] parameters:scorecardSubmission success:success failure:failure];
 }
 
--(void) asynchSgnScorecard:(NSString *) scorecardId withSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
++(void) asynchSgnScorecard:(NSString *) scorecardId withSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure: (void (^)(AFHTTPRequestOperation *operation, NSError *error)) failure {
     //TODO Make the following four lines into a method
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -151,7 +170,10 @@ failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
     NSLog(@"JSON String: %@", jsonString);
     
     [manager POST:[NSString stringWithFormat:@"%@sign", restScorecardURL] parameters:scorecardSubmission success:success failure:failure];
+}
 
++(void) asynchRetrieveCourseListWithSuccess:(void (^)(AFHTTPRequestOperation *, id)) success AndFailure :(void (^)(AFHTTPRequestOperation *, id))failure {
+    
 }
 
 @end

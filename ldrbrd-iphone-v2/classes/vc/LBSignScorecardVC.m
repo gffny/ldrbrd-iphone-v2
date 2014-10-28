@@ -16,9 +16,6 @@
 
 @implementation LBSignScorecardVC
 
-LBRestFacade *restFacade;
-
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -44,7 +41,7 @@ LBRestFacade *restFacade;
 - (void)sgnScrcrdBtnClckd:(UIButton *)sender {
     
     NSLog(@"submit scorecard button clicked");
-    [restFacade asynchSgnScorecard:[[[LBDataManager sharedInstance] scorecard] idString] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LBRestFacade asynchSgnScorecard:[[[LBDataManager sharedInstance] scorecard] idString] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSLog(@"Scorecard Sign Success");
         [[LBDataManager sharedInstance] resetScorecardData];

@@ -7,13 +7,13 @@
 //
 
 #import "LBDataManager.h"
-#import "LBRestManager.h"
 #import "LBPlayGolfVC.h"
 #import "LBGolfShotProfiler.h"
 #import "LBCourse.h"
 #import "LBDummyData.h"
 #import "LBLocationManager.h"
 #import "LBRestFacade.h"
+#import "LBScorecardUtils.h"
 
 @interface LBPlayGolfVC ()
 
@@ -27,11 +27,11 @@
 // HANDY
 @property (nonatomic, strong) LBLocationManager *locationManager;
 @property (nonatomic, strong) NSMutableArray *flightPathArray;
-@property (nonatomic, strong) LBCourse *course;
+//@property (nonatomic, strong) LBCourse *course;
 @property (nonatomic) int holeScore;
 @property (nonatomic) int holePointer;
 
-@property (nonatomic, strong) NSMutableArray *holeScoreArray;
+//@property (nonatomic, strong) NSMutableArray *holeScoreArray;
 
 // UI LABELS
 @property (strong, nonatomic) IBOutlet UILabel *parLabel;
@@ -58,30 +58,20 @@
 
     // Initialise Storage
     [self setFlightPathArray: [[NSMutableArray alloc] init]];
-    if(self.course == NULL)
-    {
-        [self setCourse: [LBDummyData dummyCourse]];
-    }
-    
-//    for(int i=0; i<self.course.holeMap.count; i++)
-//    {
-//        [[LBDataManager sharedInstance] setScore: [NSNumber numberWithInt:0] forHole: [NSNumber numberWithInt:i]];
-//    }
+
     self.holeScore = 0;
     self.holePointer = 0;
-    self.holeScoreArray = [[NSMutableArray alloc] initWithCapacity: self.course.holeMap.count];
 
-    [self loadHoleIntoView: [self.course holeWithNumber: [self actualHoleNumber]]];
+    [self loadHoleIntoView: [[[LBDataManager sharedInstance] course] holeWithNumber: [self actualHoleNumber]]];
 }
 
 - (void) loadCourseInView: (LBCourse *) courseToLoad
 {
-    [self setCourse: courseToLoad];
+    [[LBDataManager sharedInstance] initialiseCourse:courseToLoad];
 }
 
 - (void) loadHoleIntoView: (LBCourseHole *) courseHole
 {
-
     [self.holeNumberLabel setText: [NSString stringWithFormat:@"Hole Number: %@", courseHole.holeNumber]];
     [self.parLabel setText: [NSString stringWithFormat: @"%@", courseHole.par]];
     [self.distanceLabel setText: [NSString stringWithFormat: @" %@", courseHole.holeDistance]];
@@ -123,14 +113,17 @@
 
 - (void) oneFingerSwipeLeft:(UITapGestureRecognizer *)recognizer
 {
+
     // go forward hole
-    if(self.holePointer < self.course.holeMap.count)
+    if(self.holePointer < [[[[LBDataManager sharedInstance] course] holeMap] count])
     {
         NSLog(@"storing the score %i for hole %i", self.holeScore, [self actualHoleNumber]);
+        // set score in local memory
         [[LBDataManager sharedInstance] setScore: [NSNumber numberWithInt:self.holeScore] forHole: [NSNumber numberWithInt: self.holePointer]];
-#warning fix method call
-        [LBRestFacade asynchScoreHoleWithHoleNumber: 1 WithHoleScore: 1 WithScorecardId: [NSString stringWithFormat:@"%i", 1]];
-        if(self.holePointer < self.course.holeMap.count-1)
+        #warning fix method call
+        // score hole to backend
+        [LBRestFacade asynchScoreHoleWithHoleNumber: [self actualHoleNumber] WithHoleScore: self.holeScore WithScorecardId: [[[LBDataManager sharedInstance] scorecard] idString]];
+        if(self.holePointer < ([[[[LBDataManager sharedInstance] course] holeMap] count]-1))
         {
             self.holePointer++;
             NSLog(@"going to hole %i", [self actualHoleNumber]);
@@ -142,12 +135,17 @@
             {
                 self.holeScore = 0;
             }
-            [self loadHoleIntoView: [self.course holeWithNumber: [self actualHoleNumber]]];
+            [self loadHoleIntoView: [[[LBDataManager sharedInstance] course] holeWithNumber: [self actualHoleNumber]]];
         }
         else
         {
+            #warning validate that each hole is scored
             // segue to review
-            [self performSegueWithIdentifier:@"seg_shwsmmry" sender:self];
+            if([LBScorecardUtils isScoreArrayComplete: [[LBDataManager sharedInstance] currentScoreArray] forScorecard: [[LBDataManager sharedInstance] scorecard]]) {
+                [self performSegueWithIdentifier:@"seg_shwsmmry" sender:self];
+            } else {
+                // FIXME notify user that the scorecard is incomplete and that they cannot submit
+            }
         }
     }
 }
@@ -158,8 +156,10 @@
     if(self.holePointer > 0)
     {
         NSLog(@"storing the score %i for hole %i", self.holeScore, [self actualHoleNumber]);
+        // set score in local memory
         [[LBDataManager sharedInstance] setScore: [NSNumber numberWithInt:self.holeScore] forHole: [NSNumber numberWithInt: self.holePointer]];
-        [LBRestManager recordHole: [self actualHoleNumber] withScore: self.holeScore];
+        // score hole to backend
+        [LBRestFacade asynchScoreHoleWithHoleNumber: 1 WithHoleScore: 1 WithScorecardId: [NSString stringWithFormat:@"%i", 1]];
         self.holePointer--;
         NSLog(@"going to hole %i", [self actualHoleNumber]);
         if([[LBDataManager sharedInstance] getScoreForHole: [NSNumber numberWithInt: self.holePointer]])
@@ -170,7 +170,7 @@
         {
             self.holeScore = 0;
         }
-        [self loadHoleIntoView: [self.course holeWithNumber: [self actualHoleNumber]]];
+        [self loadHoleIntoView: [[[LBDataManager sharedInstance] course] holeWithNumber: [self actualHoleNumber]]];
     }
 }
 
@@ -212,11 +212,6 @@
 -(void) setHoleToView:(int)holeNumber
 {
     [self setHolePointer:holeNumber];
-}
-
--(void) setScoreArray:(NSMutableArray *)scoreArray
-{
-    [self setHoleScoreArray: scoreArray];
 }
 
 
