@@ -28,24 +28,18 @@
 
 @implementation LBRoundSummaryVC
 
-LBRestFacade *restFacade;
-
 @synthesize submitScorecardBtn;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@synthesize summaryTable;
+LBCourse *course;
 
 - (void)viewDidLoad {
 
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self loadViewWithScoreArray: [[LBDataManager sharedInstance] currentScoreArray] andCourse: [[LBDataManager sharedInstance] course]];
+    self.summaryTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.summaryTable.bounces = NO;
+    course = [[LBDataManager sharedInstance] course];
     [self.submitScorecardBtn addTarget:self action:@selector(sbmtScrcrdBtnClckd:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -92,83 +86,47 @@ LBRestFacade *restFacade;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Table view data source
 
-@end
-
-@interface LBRoundSummaryHoleTableVC ()
-
-@end
-
-@implementation LBRoundSummaryHoleTableVC
-
-@synthesize holeScoreArray;
-
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if([tableView isEqual: summaryTable]) {
+        return 1;
     }
-    return self;
-}
-
-- (void)viewDidLoad {
-
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.dataManager = [LBDataManager sharedInstance];
-    self.holeScoreArray = self.dataManager.currentScoreArray;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.bounces = NO;
-}
-
-- (void)didReceiveMemoryWarning {
-
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    // Return the number of sections.
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-    // Return the number of rows in the section.
-    return self.holeScoreArray.count;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if([tableView isEqual: summaryTable] && course != NULL) {
+        return course.holeMap.count;
+    }
+    return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *cellIdentifier = @"LBRoundSummaryHoleCell";
-    
-    LBRoundSummaryHoleCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"LBRoundSummaryHoleCell" owner:self options:nil];
-        cell = [nib objectAtIndex:0];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     NSLog(@"%@", [NSString stringWithFormat:@" index path row %ld", [[NSNumber numberWithInteger: indexPath.row] longValue]]);
-    LBCourseHole *courseHole = [self.dataManager.course holeWithNumber: ((int)indexPath.row)+1];
-    cell.holeLabel.text = [NSString stringWithFormat:@"%li", (indexPath.row+1)];
-    cell.scoreLabel.text = [NSString stringWithFormat:@"%li", (long)[[self.holeScoreArray objectAtIndex:indexPath.row] integerValue]];
-    cell.parLabel.text = [NSString stringWithFormat:@"%@", courseHole.par];
-    cell.indexLabel.text = [NSString stringWithFormat:@"%@", courseHole.index];
-
+    LBCourseHole *courseHole = [course holeWithNumber: ((int)indexPath.row)+1];
+    UILabel *holeLabel = (UILabel *)(UIImageView *)[cell viewWithTag:10];
+    holeLabel.text = [NSString stringWithFormat:@"%li", (indexPath.row+1)];
+    UILabel *parLabel = (UILabel *)(UIImageView *)[cell viewWithTag:20];
+    parLabel.text = [NSString stringWithFormat:@"%@", courseHole.par];
+    UILabel *indexLabel = (UILabel *)(UIImageView *)[cell viewWithTag:30];
+    indexLabel.text = [NSString stringWithFormat:@"%@", courseHole.index];
+    UILabel *scoreLabel = (UILabel *)(UIImageView *)[cell viewWithTag:40];
+    scoreLabel.text = [NSString stringWithFormat:@"%li", (long)[[[[LBDataManager sharedInstance] currentScoreArray]  objectAtIndex:indexPath.row] integerValue]];
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    return 30;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    LBRoundSummaryHoleCell *cell = (LBRoundSummaryHoleCell*)[tableView cellForRowAtIndexPath:indexPath];
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"Upcoming Rounds: didSelectRowAtIndexPath");
 }
 
 @end

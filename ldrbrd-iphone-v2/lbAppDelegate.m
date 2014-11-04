@@ -17,12 +17,13 @@
 {
     [self initialiseAppData];
 //    [self initializeGoogleMapsApi];
-//    [self initializeStyling];
+    [self initializeStyling];
 //    [self initializeReachability];
 //    [self initializeLocalization];
 //    [self initializeTracking];
 //    [self initializeCrashReporting];
 //    [self initializeRating];
+
     return YES;
 }
 
@@ -34,21 +35,22 @@
 
 - (void)initializeStyling
 {
-//    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
-//    tabBarController.tabBar.selectedImageTintColor = [UIColor lbBlueColour];
-//    [[UISearchBar appearance] setBarTintColor:[UIColor lbGreyColour]];
-//    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor lbBlueColour]];
-//    [[UILabel appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor lbBlueColour]];
-//    [[UITabBar appearance] setSelectionIndicatorImage:[UIImage alloc]];
-//    [[UITabBarItem appearance] setTitleTextAttributes:
-//     @{ NSForegroundColorAttributeName: [UIColor lbBlueColour],
-//        NSFontAttributeName: [UIFont preferredFontForTextStyle: UIFontTextStyleCaption2]}
-//                                             forState:UIControlStateNormal];
-//    [[UITabBarItem appearance] setTitleTextAttributes:
-//     @{ NSForegroundColorAttributeName: [UIColor lbBlueColour],
-//        NSFontAttributeName: [UIFont preferredFontForTextStyle: UIFontTextStyleCaption2]}
-//                                             forState:UIControlStateSelected];
-//    self.window.tintColor = [UIColor lbBlueColour];
+    [[UISearchBar appearance] setBarTintColor:[UIColor lbGreyColour]];
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor lbBlueColour]];
+    [[UILabel appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor lbBlueColour]];
+    [[UITabBar appearance] setSelectionIndicatorImage:[UIImage alloc]];
+    [[UITabBarItem appearance] setTitleTextAttributes:
+     @{ NSForegroundColorAttributeName: [UIColor lbBlueColour],
+        NSFontAttributeName: [UIFont preferredFontForTextStyle: UIFontTextStyleCaption2]}
+                                             forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:
+     @{ NSForegroundColorAttributeName: [UIColor lbBlueColour],
+        NSFontAttributeName: [UIFont preferredFontForTextStyle: UIFontTextStyleCaption2]}
+                                             forState:UIControlStateSelected];
+    self.window.tintColor = [UIColor lbBlueColour];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor lbBlueColour]];
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIColor lbGreyColour], NSForegroundColorAttributeName, nil]];
+
 }
 
 							

@@ -14,10 +14,7 @@
 #import "LBPlayGolfVC.h"
 
 @interface LBStartRoundVC ()
-
 @end
-
-
 
 @implementation LBStartRoundVC
 

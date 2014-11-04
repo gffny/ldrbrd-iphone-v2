@@ -60,6 +60,7 @@
     self.holePointer = 0;
 
     [self loadHoleIntoView: [[[LBDataManager sharedInstance] course] holeWithNumber: [self actualHoleNumber]]];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 - (void) loadCourseInView: (LBCourse *) courseToLoad

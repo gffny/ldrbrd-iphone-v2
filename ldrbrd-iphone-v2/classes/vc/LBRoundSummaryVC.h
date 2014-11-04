@@ -9,16 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "LBDataManager.h"
 
-@interface LBRoundSummaryVC: UIViewController
+@interface LBRoundSummaryVC: UIViewController<UITableViewDelegate, UITableViewDataSource> {
+    
+}
 
 @property (strong, nonatomic) IBOutlet UIButton *submitScorecardBtn;
-
-@end
-
-@interface LBRoundSummaryHoleTableVC : UITableViewController
-
-@property (nonatomic, strong) NSArray *holeScoreArray;
-@property (nonatomic, strong) LBDataManager *dataManager;
+@property (weak, nonatomic) IBOutlet UITableView * summaryTable;
 
 @end
 

@@ -34,6 +34,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [scroller setScrollEnabled:YES];
+    [scroller setContentSize:CGSizeMake(320, 736)];
+    [scroller setDelegate:self];
 
     [self.upcomingRoundTable setDataSource:self];
     [self.upcomingRoundTable setDelegate:self];
@@ -192,7 +196,5 @@
 {
     NSLog(@"Upcoming Rounds: didSelectRowAtIndexPath");
 }
-
-
 
 @end

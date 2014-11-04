@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LBMainVC : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface LBMainVC : UIViewController<UITableViewDelegate, UITableViewDataSource,  UIScrollViewDelegate> {
+    
+    IBOutlet UIScrollView *scroller;
+}
 
 -(void) playUpcomingRoundWithId: (NSString *) roundId;
 
