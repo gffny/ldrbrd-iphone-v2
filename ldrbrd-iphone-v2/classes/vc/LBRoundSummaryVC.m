@@ -36,7 +36,7 @@ LBCourse *course;
 
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self loadViewWithScoreArray: [[LBDataManager sharedInstance] currentScoreArray] andCourse: [[LBDataManager sharedInstance] course]];
+    [self loadViewWithScoreArray: [[LBDataManager sharedInstance] primaryScoreArray] andCourse: [[LBDataManager sharedInstance] course]];
     self.summaryTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.summaryTable.bounces = NO;
     course = [[LBDataManager sharedInstance] course];
@@ -46,7 +46,7 @@ LBCourse *course;
 - (void)sbmtScrcrdBtnClckd:(UIButton *)sender {
 
     NSLog(@"submit scorecard button clicked");
-    [LBRestFacade asynchSubmitScorecard: [[LBDataManager sharedInstance] currentScoreArray] andScorecardId:[[[LBDataManager sharedInstance] scorecard] idString] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [LBRestFacade asynchSubmitScorecard: [[LBDataManager sharedInstance] primaryScoreArray] andScorecardId:[[[LBDataManager sharedInstance] scorecard] idString] withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSLog(@"Scorecard Submit Success");
         // move to new screen
@@ -120,7 +120,7 @@ LBCourse *course;
     UILabel *indexLabel = (UILabel *)(UIImageView *)[cell viewWithTag:30];
     indexLabel.text = [NSString stringWithFormat:@"%@", courseHole.index];
     UILabel *scoreLabel = (UILabel *)(UIImageView *)[cell viewWithTag:40];
-    scoreLabel.text = [NSString stringWithFormat:@"%li", (long)[[[[LBDataManager sharedInstance] currentScoreArray]  objectAtIndex:indexPath.row] integerValue]];
+    scoreLabel.text = [NSString stringWithFormat:@"%li", (long)[[[[LBDataManager sharedInstance] primaryScoreArray]  objectAtIndex:indexPath.row] integerValue]];
     return cell;
 }
 

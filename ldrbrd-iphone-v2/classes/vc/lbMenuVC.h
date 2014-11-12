@@ -12,6 +12,6 @@
 @property (nonatomic) IBOutlet UILabel *label;
 @end
 
-@interface lbMenuVC : UITableViewController
+@interface LBMenuVC : UITableViewController
 
 @end

@@ -138,7 +138,7 @@
         {
             #warning validate that each hole is scored
             // segue to review
-            if([LBScorecardUtils isScoreArrayComplete: [[LBDataManager sharedInstance] currentScoreArray] forScorecard: [[LBDataManager sharedInstance] scorecard]]) {
+            if([LBScorecardUtils isScoreArrayComplete: [[LBDataManager sharedInstance] primaryScoreArray] forScorecard: [[LBDataManager sharedInstance] scorecard]]) {
                 [self performSegueWithIdentifier:@"seg_shwsmmry" sender:self];
             } else {
                 // FIXME notify user that the scorecard is incomplete and that they cannot submit

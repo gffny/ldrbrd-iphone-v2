@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 CoDeveloper. All rights reserved.
 //
 
-#import "lbMenuVC.h"
+#import "LBMenuVC.h"
 #import "SWRevealViewController.h"
 
 @implementation SWUITableViewCell
 @end
 
-@implementation lbMenuVC
+@implementation LBMenuVC
 
 - (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
 {

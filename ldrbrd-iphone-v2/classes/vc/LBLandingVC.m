@@ -29,25 +29,6 @@
     return self;
 }
 
-- (void)loginAction:(UIButton *)sender
-{
-    NSLog(@"%@", username.text);
-    [LBRestFacade asynchAuthenticateWithUsername:username.text andPassword:password.text withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-
-        [[NSUserDefaults standardUserDefaults] setObject:username.text forKey:@"username"];
-        NSLog(@"Auth Success");
-        // move to new screen
-        [self dismissViewControllerAnimated:YES completion:nil];
-        [self performSegueWithIdentifier:@"seg_auth" sender:self];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"Auth Failure");
-        [warningLabel setText: @"authentication failed"];
-        
-    }];
-}
-
 - (void)viewDidLoad
 {
     [self.username setText: [[NSUserDefaults standardUserDefaults] objectForKey:@"username"]];
@@ -67,6 +48,30 @@
     }];
     
     [self.loginButton addTarget:self action:@selector(loginAction:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)loginAction:(UIButton *)sender
+{
+    NSLog(@"%@", username.text);
+    [LBRestFacade asynchAuthenticateWithUsername:username.text andPassword:password.text withSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [[NSUserDefaults standardUserDefaults] setObject:username.text forKey:@"username"];
+        NSLog(@"Auth Success");
+        // move to new screen
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self performSegueWithIdentifier:@"seg_auth" sender:self];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"Auth Failure");
+        if(error != NULL) {
+            NSLog(@"%ld", (long)[error code]);
+            NSLog(@"%@", [error description]);
+            [warningLabel setText: [NSString stringWithFormat: @"authentication failed: %@", [error description]]];
+        } else {
+            [warningLabel setText: @"authentication failed"];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning

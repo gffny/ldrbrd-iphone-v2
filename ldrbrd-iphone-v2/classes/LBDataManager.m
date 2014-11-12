@@ -43,7 +43,7 @@
 {
     
     _courseInPlay = NULL;
-    _currentScoreArray = NULL;
+    _primaryScoreArray = NULL;
     _scorecard = NULL;
 }
 
@@ -52,7 +52,7 @@
     if(self)
     {
         _courseInPlay = course;
-        _currentScoreArray = [self initialiseScoreArray: course.courseHoleList.count];
+        _primaryScoreArray = [self initialiseScoreArray: course.courseHoleList.count];
     }
 }
 
@@ -70,7 +70,7 @@
 
 -(BOOL) isInRound
 {
-    if(_scorecard != NULL && _currentScoreArray != NULL)
+    if(_scorecard != NULL && _primaryScoreArray != NULL)
     {
         return YES;
     }
@@ -79,9 +79,9 @@
 
 -(NSInteger) getScoreForHole: (NSNumber *) holeNumber
 {
-    if(_currentScoreArray != NULL && [holeNumber intValue] <= _currentScoreArray.count)
+    if(_primaryScoreArray != NULL && [holeNumber intValue] <= _primaryScoreArray.count)
     {
-        NSNumber *score = [_currentScoreArray objectAtIndex: [holeNumber integerValue]];
+        NSNumber *score = [_primaryScoreArray objectAtIndex: [holeNumber integerValue]];
         return [score integerValue];
     }
     return [[NSNumber numberWithInt: 0] integerValue];
@@ -89,14 +89,14 @@
 
 -(void) setScore: (NSNumber *) holeScore forHole: (NSNumber *) holeNumber
 {
-    if(_currentScoreArray == NULL) {
+    if(_primaryScoreArray == NULL) {
         if(_scorecard.course != NULL && _scorecard.course.courseHoleList != NULL) {
-            _currentScoreArray = [self initialiseScoreArray: _scorecard.course.courseHoleList.count];
+            _primaryScoreArray = [self initialiseScoreArray: _scorecard.course.courseHoleList.count];
         } else {
-            _currentScoreArray = [self initialiseScoreArray: 18];
+            _primaryScoreArray = [self initialiseScoreArray: 18];
         }
     }
-    [_currentScoreArray replaceObjectAtIndex: [holeNumber integerValue] withObject: holeScore];
+    [_primaryScoreArray replaceObjectAtIndex: [holeNumber integerValue] withObject: holeScore];
 }
 
 -(void) resetGolferScoreArray

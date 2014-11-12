@@ -114,4 +114,18 @@
     return -1;
 }
 
++(NSArray<LBCourse> *) distinctCourseListFromScorecardArray: (NSArray<LBScorecard> *) scorecardList
+{
+    NSMutableArray<LBCourse> *distinctCourseList = (NSMutableArray<LBCourse> *)[[NSMutableArray alloc] init];
+    // iterate through the scorecard list
+    for(LBScorecard *scorecard in scorecardList) {
+        // check if the scorecard and it's course are not null
+        if(scorecard != NULL && scorecard.course != NULL && ![distinctCourseList containsObject:scorecard.course]) {
+            [distinctCourseList addObject:scorecard.course];
+        }
+    }
+    return distinctCourseList;
+}
+
+
 @end

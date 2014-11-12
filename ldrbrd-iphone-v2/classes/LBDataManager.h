@@ -15,7 +15,11 @@
 
 /* SCORECARD INFO */
 @property (nonatomic, strong) LBScorecard *scorecard;
-@property (nonatomic, strong) NSMutableArray *currentScoreArray;
+@property (nonatomic, strong) NSMutableArray *primaryScoreArray;
+@property (nonatomic, strong) NSMutableArray *glfr1ScoreArray;
+@property (nonatomic, strong) NSMutableArray *glfr2ScoreArray;
+@property (nonatomic, strong) NSMutableArray *glfr3ScoreArray;
+@property (nonatomic, strong) NSMutableArray<LBGolfer> *golferArray;
 
 /* GOLFER INFO */
 @property (nonatomic, strong) LBGolfer *golferProfile;

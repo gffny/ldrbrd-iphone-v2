@@ -23,4 +23,6 @@
 
 +(int) countPar: (NSArray*) scoreArray onCourse: (LBCourse *) course;
 
++(NSArray<LBCourse> *) distinctCourseListFromScorecardArray: (NSArray<LBScorecard> *) scorecardList;
+
 @end
