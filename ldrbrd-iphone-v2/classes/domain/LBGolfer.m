@@ -32,4 +32,15 @@
             }];
 }
 
++(LBGolfer*) golferWithFirstName: (NSString *) firstName andLastName: (NSString *)lastName andHandicap: (NSString *)handicap andLastRound: (NSString *)lastRound andProfileImageRef:(NSString *)url {
+    
+    LBGolfer *golfer = [[LBGolfer alloc] init];
+    [golfer setFirstName: firstName];
+    [golfer setLastName: lastName];
+    [golfer setHandicap: handicap];
+    [golfer setLastRoundDate: lastRound];
+    [golfer setProfileImageRef: url];
+    return golfer;
+}
+
 @end

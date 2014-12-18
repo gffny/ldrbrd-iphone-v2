@@ -10,7 +10,7 @@
 #import "LBCourseDescription.h"
 #import "LBPlayerSummaryView.h"
 
-@interface LBCourseSelectScrnTwoVC : UIViewController<UITextFieldDelegate, UIScrollViewDelegate>
+@interface LBStartRoundDetailVC : UIViewController<UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet LBPlayerSummaryView *secondPlayerSummary;
 @property (strong, nonatomic) IBOutlet LBPlayerSummaryView *thirdPlayerSummary;
 @property (strong, nonatomic) IBOutlet LBPlayerSummaryView *fourthPlayerSummary;
+@property (strong, nonatomic) IBOutlet UIButton *startRoundButton;
 
 @property (nonatomic) CGFloat previousScrollViewYOffset;
 

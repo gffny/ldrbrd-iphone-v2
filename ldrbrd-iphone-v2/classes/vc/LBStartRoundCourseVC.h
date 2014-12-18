@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LBCourseSelectVC : UIViewController <UISearchBarDelegate>
+@interface LBStartRoundCourseVC : UIViewController <UISearchBarDelegate>
 
 @end

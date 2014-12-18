@@ -6,15 +6,14 @@
 //  Copyright (c) 2014 gffny.com. All rights reserved.
 //
 
-#import "LBCourseSelectScrnTwoVC.h"
+#import "LBStartRoundDetailVC.h"
+#import "LBGolferSelectVC.h"
 
-@interface LBCourseSelectScrnTwoVC ()
-
-@property (strong, nonatomic) IBOutlet UIButton *playButton;
+@interface LBStartRoundDetailVC ()
 
 @end
 
-@implementation LBCourseSelectScrnTwoVC
+@implementation LBStartRoundDetailVC
 
 @synthesize courseDetail;
 @synthesize firstPlayerSummary;
@@ -40,7 +39,7 @@
     [self.scrollView setScrollEnabled: YES];
     [self.scrollView setContentSize:CGSizeMake(320, 700)];
     [self setPreviousScrollViewYOffset: 1.0f];
-    [self.playButton addTarget:self action:@selector(playAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.startRoundButton addTarget:self action:@selector(startRoundClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)initialiseViewWithCourse: (LBCourse *) course {
@@ -65,28 +64,47 @@
     [firstPlayerSummary initialisePlayerViewWithName:@"John Gaffney (16)" AndDetail:@"Home Club: Fresh Pond. Last Round: 86/18 @ Butterbrook" AndImageUrl:@"http://images.ak.instagram.com/profiles/profile_215923613_75sq_1397131660.jpg"];
     [secondPlayerSummary initaliseEmptyPlayerView];
     [secondPlayerSummary showAddEditButton];
-    [secondPlayerSummary addButtonHandler: @selector(firstAddEditHandler:) andTarget:self];
+    [secondPlayerSummary addButtonHandler: @selector(showPlayerSelect:) andTarget:self];
+//    [secondPlayerSummary addButtonHandler: @selector(firstAddEditHandler:) andTarget:self];
     [thirdPlayerSummary initaliseEmptyPlayerView];
-    [thirdPlayerSummary addButtonHandler: @selector(secondAddEditHandler:) andTarget:self];
+//    [thirdPlayerSummary addButtonHandler: @selector(secondAddEditHandler:) andTarget:self];
+    [thirdPlayerSummary addButtonHandler: @selector(showPlayerSelect:) andTarget:self];
     [fourthPlayerSummary initaliseEmptyPlayerView];
-    [fourthPlayerSummary addButtonHandler: @selector(thirdAddEditHandler:) andTarget:self];
+//    [fourthPlayerSummary addButtonHandler: @selector(thirdAddEditHandler:) andTarget:self];
+    [fourthPlayerSummary addButtonHandler: @selector(showPlayerSelect:) andTarget:self];
+}
+
+- (void) showPlayerSelect: (UIButton *) sender {
+    NSLog(@"show player select");
+    [self performSegueWithIdentifier:@"seg_slctglfr" sender:self];
 }
 
 - (void) firstAddEditHandler:(UIButton *)sender {
     NSLog(@"It worked: first handler!");
     [secondPlayerSummary initialisePlayerViewWithName:@"Colm Caffrey (7)" AndDetail:@"Home Club: Fresh Pond. Last Round: 86/18 @ Butterbrook" AndImageUrl:@"https://www.cs.tcd.ie/postgraduate/mscnds/prospective/alumni/2006-2007/photos/ccaffrey.jpg"];
     [thirdPlayerSummary showAddEditButton];
+    // move scroll view down 60px
+    CGPoint currentOffset = self.scrollView.contentOffset;
+    currentOffset.y = currentOffset.y+60;
+    [self.scrollView setContentOffset:currentOffset animated:YES];
 }
 
 - (void) secondAddEditHandler:(UIButton *)sender {
     NSLog(@"It worked: second handler!");
     [thirdPlayerSummary initialisePlayerViewWithName:@"Eoin DeBarra (19)" AndDetail:@"Home Club: Fresh Pond. Last Round: 86/18 @ Butterbrook" AndImageUrl:@"http://media-cache-ec0.pinimg.com/avatars/eoindeb_1337086653_140.jpg"];
     [fourthPlayerSummary showAddEditButton];
+    // move scroll view down 60px
+    CGPoint currentOffset = self.scrollView.contentOffset;
+    currentOffset.y = currentOffset.y+60;
+    [self.scrollView setContentOffset:currentOffset animated:YES];
 }
 
 - (void) thirdAddEditHandler:(UIButton *)sender {
     NSLog(@"It worked: third handler!");
     [fourthPlayerSummary initialisePlayerViewWithName:@"Niall O'Connor (21)" AndDetail:@"Home Club: Fresh Pond. Last Round: 86/18 @ Butterbrook" AndImageUrl:@"http://static.squarespace.com/static/541c4fd3e4b000f167fdfe1d/t/545971fae4b01dea9a202fa9/1415148026925/4921222956_c23a009a11_b.jpg"];
+    // move scroll view to bottom
+    CGPoint bottomOffset = CGPointMake(0, self.scrollView.contentSize.height - self.scrollView.bounds.size.height);
+    [self.scrollView setContentOffset:bottomOffset animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -95,18 +113,24 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    return TRUE;
+- (void) startRoundClicked: (UIButton *)sender {
+    [self performSegueWithIdentifier:@"seg_plyrnd" sender:self];
 }
 
-#pragma mark - Action methods
-- (void)playAction:(UIButton *)sender
-{
-    [LBDataManager sharedInstance];
-    [self performSegueWithIdentifier:@"seg_plymltplrnd" sender:self];
-}
+#pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    UIViewController *destVc = [segue destinationViewController];
+    if([destVc isKindOfClass: [LBGolferSelectVC class]])
+    {
+        LBGolferSelectVC *playGolfVC = (LBGolferSelectVC *)destVc;
+        
+    }
+    // Pass the selected object to the new view controller.
+}
 
 #pragma mark - UIScrollViewDelegate methods
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

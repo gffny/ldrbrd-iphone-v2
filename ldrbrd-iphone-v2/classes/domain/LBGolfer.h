@@ -32,5 +32,8 @@
 
 @property (strong, nonatomic) NSString<Optional> *lastLogin;// = "<null>";
 @property (strong, nonatomic) NSString<Ignore> *lastLoginDT;// = "<null>";
+@property (strong, nonatomic) NSString<Optional> *lastRoundDate;
+
++(LBGolfer*) golferWithFirstName: (NSString *) firstName andLastName: (NSString *)lastName andHandicap: (NSString *)handicap andLastRound: (NSString *)lastRound andProfileImageRef: (NSString *) url;
 
 @end

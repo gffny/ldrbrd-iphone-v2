@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 gffny.com. All rights reserved.
 //
 
-#import "LBCourseSelectVC.h"
+#import "LBStartRoundCourseVC.h"
 #import "LBScorecardUtils.h"
 
-@interface LBCourseSelectVC ()
+@interface LBStartRoundCourseVC ()
 
 @property (weak, nonatomic) IBOutlet UITableView *recentTable;
 @property (weak, nonatomic) IBOutlet UITableView *searchTable;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation LBCourseSelectVC
+@implementation LBStartRoundCourseVC
 
 @synthesize recentTable;
 @synthesize searchTable;
